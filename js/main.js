@@ -221,7 +221,7 @@
 
   function initInterventionMap() {
     const tip = document.getElementById('map-tip');
-    const svg = document.querySelector('.intervention-svg');
+    const svg = document.querySelector('.world-map-svg');
     if (!svg) return;
 
     const markers = Array.from(svg.querySelectorAll('.mk[data-country]'));

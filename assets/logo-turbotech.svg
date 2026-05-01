@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" role="img" aria-label="TurboTech Consulting">
+  <defs>
+    <linearGradient id="ttcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <!-- Monogram TTC -->
+  <g transform="translate(4,4)">
+    <rect width="72" height="72" rx="18" fill="#000" stroke="url(#ttcGrad)" stroke-width="2.5"/>
+    <text x="36" y="48" text-anchor="middle" font-family="Orbitron, Audiowide, system-ui, sans-serif" font-size="22" font-weight="800" fill="url(#ttcGrad)" letter-spacing="-0.06em">TTC</text>
+  </g>
+  <!-- Wordmark -->
+  <text x="92" y="34" font-family="Audiowide, Orbitron, system-ui, sans-serif" font-size="17" fill="#ecfdf5" letter-spacing="0.06em">TurboTech</text>
+  <text x="92" y="58" font-family="Rajdhani, Exo 2, system-ui, sans-serif" font-size="15" font-weight="600" fill="#94a3b8" letter-spacing="0.14em">CONSULTING</text>
+</svg>

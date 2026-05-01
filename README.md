@@ -155,9 +155,16 @@ TurboTech/
 ├── js/
 │   └── main.js         # Interactions (header, menu, scroll, AOS)
 ├── assets/
-│   └── favicon.svg     # Icône onglet navigateur
+│   ├── favicon.svg           # Icône onglet (monogramme TTC)
+│   ├── logo-turbotech.svg    # Logo horizontal TurboTech Consulting
+│   └── world-map.svg         # Carte monde (fichier Wikimedia, voir crédits page)
 └── README.md           # Ce fichier
 ```
+
+### Crédits (carte monde)
+
+Le fichier `assets/world-map.svg` provient de Wikimedia Commons — voir la page du fichier pour la licence exacte et les conditions de réutilisation :  
+`https://commons.wikimedia.org/wiki/File:World_map_blank_without_borders.svg`
 
 ---
 
