@@ -168,9 +168,99 @@
 
       <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
         <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-          <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-brand-500/30 bg-brand-500/10 backdrop-blur-sm text-brand-300 text-sm font-medium">
-            <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
-            Bénin · Afrique de l'Ouest · Disponible pour vos projets
+          <div class="intervention-wrap mb-8">
+            <div class="intervention-pill">
+              <span class="dot"></span>
+              Zones d’intervention
+              <span class="sep">•</span>
+              Afrique · Europe · Canada
+            </div>
+
+            <div class="intervention-card mt-5">
+              <div class="intervention-map" role="img" aria-label="Carte interactive des pays d’intervention">
+                <svg viewBox="0 0 800 360" class="intervention-svg" aria-hidden="true">
+                  <!-- subtle world silhouette (stylized, lightweight) -->
+                  <path class="world"
+                        d="M72,214c44-64,92-96,144-96c38,0,66,12,92,28c22,14,42,22,66,22c38,0,78-20,120-20c44,0,86,20,122,36
+                           c40,18,84,30,110,16c26-14,38-42,46-70c-2,74-22,132-60,170c-40,40-96,56-170,56H222c-70,0-122-12-150-38
+                           C42,292,44,254,72,214Z"/>
+                  <path class="world"
+                        d="M140,96c34-32,78-52,132-52c58,0,112,22,152,44c44,24,96,48,154,44c46-4,84-24,116-60
+                           c-10,54-34,92-70,114c-40,24-92,22-154,2c-50-16-92-38-136-54c-44-16-86-26-130-12C176,132,156,110,140,96Z"/>
+
+                  <!-- Markers (hover/click) -->
+                  <g class="markers">
+                    <!-- Africa -->
+                    <g class="mk" data-country="BJ" tabindex="0">
+                      <circle class="pin" cx="392" cy="214" r="6"></circle>
+                      <circle class="pulse" cx="392" cy="214" r="12"></circle>
+                      <text class="lbl" x="404" y="218">Bénin</text>
+                    </g>
+                    <g class="mk" data-country="TG" tabindex="0">
+                      <circle class="pin" cx="402" cy="220" r="6"></circle>
+                      <circle class="pulse" cx="402" cy="220" r="12"></circle>
+                      <text class="lbl" x="414" y="224">Togo</text>
+                    </g>
+                    <g class="mk" data-country="GA" tabindex="0">
+                      <circle class="pin" cx="360" cy="244" r="6"></circle>
+                      <circle class="pulse" cx="360" cy="244" r="12"></circle>
+                      <text class="lbl" x="372" y="248">Gabon</text>
+                    </g>
+                    <g class="mk" data-country="NG" tabindex="0">
+                      <circle class="pin" cx="414" cy="232" r="6"></circle>
+                      <circle class="pulse" cx="414" cy="232" r="12"></circle>
+                      <text class="lbl" x="426" y="236">Nigeria</text>
+                    </g>
+
+                    <!-- Europe -->
+                    <g class="mk" data-country="FR" tabindex="0">
+                      <circle class="pin" cx="402" cy="140" r="6"></circle>
+                      <circle class="pulse" cx="402" cy="140" r="12"></circle>
+                      <text class="lbl" x="414" y="144">France</text>
+                    </g>
+                    <g class="mk" data-country="BE" tabindex="0">
+                      <circle class="pin" cx="414" cy="132" r="6"></circle>
+                      <circle class="pulse" cx="414" cy="132" r="12"></circle>
+                      <text class="lbl" x="426" y="136">Belgique</text>
+                    </g>
+                    <g class="mk" data-country="NL" tabindex="0">
+                      <circle class="pin" cx="426" cy="128" r="6"></circle>
+                      <circle class="pulse" cx="426" cy="128" r="12"></circle>
+                      <text class="lbl" x="438" y="132">Pays-Bas</text>
+                    </g>
+                    <g class="mk" data-country="CH" tabindex="0">
+                      <circle class="pin" cx="420" cy="148" r="6"></circle>
+                      <circle class="pulse" cx="420" cy="148" r="12"></circle>
+                      <text class="lbl" x="432" y="152">Suisse</text>
+                    </g>
+
+                    <!-- Canada -->
+                    <g class="mk" data-country="CA" tabindex="0">
+                      <circle class="pin" cx="214" cy="106" r="6"></circle>
+                      <circle class="pulse" cx="214" cy="106" r="12"></circle>
+                      <text class="lbl" x="226" y="110">Canada</text>
+                    </g>
+                  </g>
+                </svg>
+
+                <div id="map-tip" class="map-tip" aria-hidden="true"></div>
+              </div>
+
+              <div class="intervention-list" aria-label="Liste des pays d’intervention">
+                <button class="country-chip" data-country="BJ" type="button">Bénin</button>
+                <button class="country-chip" data-country="TG" type="button">Togo</button>
+                <button class="country-chip" data-country="GA" type="button">Gabon</button>
+                <button class="country-chip" data-country="NG" type="button">Nigeria</button>
+                <div class="country-divider"></div>
+                <button class="country-chip" data-country="FR" type="button">France</button>
+                <button class="country-chip" data-country="CH" type="button">Suisse</button>
+                <button class="country-chip" data-country="BE" type="button">Belgique</button>
+                <button class="country-chip" data-country="NL" type="button">Pays-Bas</button>
+                <div class="country-divider"></div>
+                <button class="country-chip" data-country="CA" type="button">Canada</button>
+                <p class="country-hint">Survole ou clique un pays pour le mettre en évidence.</p>
+              </div>
+            </div>
           </div>
 
           <p class="text-sm sm:text-base text-slate-300 tracking-wide uppercase mb-6">

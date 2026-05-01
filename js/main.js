@@ -17,6 +17,7 @@
     initOrbParallax();
     initScrollProgress();
     initSpotlight();
+    initInterventionMap();
   });
 
   function prefersReducedMotion() {
@@ -216,5 +217,85 @@
 
     window.addEventListener('mousemove', onMove, { passive: true });
     apply();
+  }
+
+  function initInterventionMap() {
+    const tip = document.getElementById('map-tip');
+    const svg = document.querySelector('.intervention-svg');
+    if (!svg) return;
+
+    const markers = Array.from(svg.querySelectorAll('.mk[data-country]'));
+    const chips = Array.from(document.querySelectorAll('.country-chip[data-country]'));
+    const markerByCode = new Map(markers.map((m) => [m.getAttribute('data-country'), m]));
+    const chipByCode = new Map(chips.map((c) => [c.getAttribute('data-country'), c]));
+
+    const getLabel = (code) => {
+      const m = markerByCode.get(code);
+      if (!m) return code;
+      const t = m.querySelector('.lbl');
+      return (t && t.textContent) ? t.textContent.trim() : code;
+    };
+
+    const clear = () => {
+      markers.forEach((m) => m.classList.remove('is-active'));
+      chips.forEach((c) => c.classList.remove('is-active'));
+      if (tip) tip.classList.remove('is-visible');
+    };
+
+    const activate = (code, showTip = true) => {
+      clear();
+      const m = markerByCode.get(code);
+      const c = chipByCode.get(code);
+      if (m) m.classList.add('is-active');
+      if (c) c.classList.add('is-active');
+
+      if (!tip || !m || !showTip) return;
+      const pin = m.querySelector('.pin');
+      if (!pin) return;
+      const cx = pin.getAttribute('cx');
+      const cy = pin.getAttribute('cy');
+      if (!cx || !cy) return;
+
+      // Map SVG coords to container via percentages
+      const vb = svg.viewBox.baseVal;
+      const px = (Number(cx) / vb.width) * 100;
+      const py = (Number(cy) / vb.height) * 100;
+      tip.style.setProperty('--tx', px.toFixed(2) + '%');
+      tip.style.setProperty('--ty', py.toFixed(2) + '%');
+      tip.textContent = getLabel(code);
+      tip.classList.add('is-visible');
+    };
+
+    const wireMarker = (m) => {
+      const code = m.getAttribute('data-country');
+      if (!code) return;
+      m.addEventListener('mouseenter', () => activate(code, true));
+      m.addEventListener('focus', () => activate(code, true));
+      m.addEventListener('click', () => activate(code, true));
+      m.addEventListener('mouseleave', () => clear());
+      m.addEventListener('blur', () => clear());
+      m.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activate(code, true);
+        }
+      });
+    };
+
+    const wireChip = (c) => {
+      const code = c.getAttribute('data-country');
+      if (!code) return;
+      c.addEventListener('mouseenter', () => activate(code, true));
+      c.addEventListener('focus', () => activate(code, true));
+      c.addEventListener('click', () => activate(code, true));
+      c.addEventListener('mouseleave', () => clear());
+      c.addEventListener('blur', () => clear());
+    };
+
+    markers.forEach(wireMarker);
+    chips.forEach(wireChip);
+
+    // Default highlight
+    activate('BJ', false);
   }
 })();
