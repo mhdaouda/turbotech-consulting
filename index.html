@@ -78,25 +78,103 @@
     </script>
   </head>
   <body class="bg-black text-slate-200 font-sans antialiased overflow-x-hidden">
-    <!-- Loader (inspired by Hexahub feel) -->
-    <div id="page-loader" class="fixed inset-0 z-[9999] bg-black flex items-center justify-center">
-      <div class="relative w-full max-w-md px-8 text-center">
-        <div class="absolute inset-0 -z-10 bg-gradient-to-br from-brand-500/15 via-transparent to-cyber-500/15 blur-3xl"></div>
+    <!-- Loader façon Hexahub : fond design → nom → startup → zones → carte -->
+    <div id="page-loader" class="loader-overlay fixed inset-0 z-[9999] bg-black flex items-center justify-center overflow-y-auto overflow-x-hidden px-4 py-10">
+      <div class="loader-panel relative w-full max-w-xl mx-auto text-center">
+        <div class="loader-panel-glow"></div>
+        <div class="loader-panel-frame"></div>
+        <div class="loader-panel-grid" aria-hidden="true"></div>
 
-        <div class="loader-mark mx-auto">
-          <div class="loader-ring"></div>
-          <div class="loader-core font-tech">TTC</div>
+        <div id="loader-step-brand" class="loader-stage-step">
+          <p class="loader-brand-title font-display text-3xl sm:text-4xl font-bold text-white tracking-tight leading-tight">
+            TurboTech Consulting
+          </p>
+          <div class="loader-brand-line mx-auto mt-4"></div>
         </div>
 
-        <div class="mt-6 font-display text-2xl text-white tracking-tight loader-title">TurboTech Consulting</div>
-        <div class="mt-2 text-sm text-slate-300 tracking-wide">Turbo Tech Startup</div>
-        <div class="mt-2 text-sm text-slate-400">Chargement…</div>
-
-        <div class="mt-6 h-2 rounded-full bg-white/10 overflow-hidden border border-white/10">
-          <div id="loader-bar" class="h-full w-0 bg-gradient-to-r from-brand-500 to-cyber-500"></div>
+        <div id="loader-step-startup" class="loader-stage-step mt-6">
+          <p class="text-sm sm:text-base text-slate-200 tracking-[0.25em] uppercase font-semibold">
+            Turbo Tech Startup
+          </p>
+          <p class="mt-3 text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+            Votre partenaire digital pour des solutions numériques modernes et fiables — Afrique, Europe et Amérique.
+          </p>
         </div>
-        <div class="mt-3 text-xs text-slate-500 tracking-widest uppercase">
-          <span id="loader-pct">0</span>%
+
+        <div id="loader-step-zones" class="loader-stage-step mt-8">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-500/35 bg-brand-500/10 backdrop-blur-sm text-brand-200 text-xs sm:text-sm font-semibold tracking-wide">
+            <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse flex-shrink-0"></span>
+            Zones d'intervention
+            <span class="opacity-50">•</span>
+            Afrique · Europe · Amérique
+          </div>
+        </div>
+
+        <div id="loader-step-map" class="loader-stage-step mt-8">
+          <div class="loader-map-shell rounded-2xl border border-white/10 bg-dark-800/60 backdrop-blur-md overflow-hidden shadow-2xl shadow-brand-900/30">
+            <div class="loader-intervention-map intervention-map intervention-map--loader" role="presentation">
+              <svg class="world-map-svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4378.13 2434.94" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <image href="assets/world-map.svg" xlink:href="assets/world-map.svg" width="4378.13" height="2434.94" class="world-map-raster" preserveAspectRatio="xMidYMid meet" />
+                <g class="markers">
+                  <g class="mk" data-country="BJ">
+                    <circle class="pulse" cx="2216.6" cy="1130.1" r="52"></circle>
+                    <circle class="pin" cx="2216.6" cy="1130.1" r="20"></circle>
+                    <text class="lbl" x="2255" y="1138">Bénin</text>
+                  </g>
+                  <g class="mk" data-country="TG">
+                    <circle class="pulse" cx="2204.5" cy="1101.3" r="52"></circle>
+                    <circle class="pin" cx="2204.5" cy="1101.3" r="20"></circle>
+                    <text class="lbl" x="2243" y="1109">Togo</text>
+                  </g>
+                  <g class="mk" data-country="GA">
+                    <circle class="pulse" cx="2331.4" cy="1229.3" r="52"></circle>
+                    <circle class="pin" cx="2331.4" cy="1229.3" r="20"></circle>
+                    <text class="lbl" x="2370" y="1237">Gabon</text>
+                  </g>
+                  <g class="mk" data-country="NG">
+                    <circle class="pulse" cx="2295.8" cy="1095.4" r="52"></circle>
+                    <circle class="pin" cx="2295.8" cy="1095.4" r="20"></circle>
+                    <text class="lbl" x="2334" y="1103">Nigeria</text>
+                  </g>
+                  <g class="mk" data-country="FR">
+                    <circle class="pulse" cx="2216.6" cy="592.2" r="52"></circle>
+                    <circle class="pin" cx="2216.6" cy="592.2" r="20"></circle>
+                    <text class="lbl" x="2255" y="600">France</text>
+                  </g>
+                  <g class="mk" data-country="BE">
+                    <circle class="pulse" cx="2244.2" cy="534.4" r="52"></circle>
+                    <circle class="pin" cx="2244.2" cy="534.4" r="20"></circle>
+                    <text class="lbl" x="2283" y="542">Belgique</text>
+                  </g>
+                  <g class="mk" data-country="NL">
+                    <circle class="pulse" cx="2253.8" cy="512.1" r="52"></circle>
+                    <circle class="pin" cx="2253.8" cy="512.1" r="20"></circle>
+                    <text class="lbl" x="2292" y="520">Pays-Bas</text>
+                  </g>
+                  <g class="mk" data-country="CH">
+                    <circle class="pulse" cx="2290.5" cy="584.7" r="52"></circle>
+                    <circle class="pin" cx="2290.5" cy="584.7" r="20"></circle>
+                    <text class="lbl" x="2329" y="592">Suisse</text>
+                  </g>
+                  <g class="mk" data-country="CA">
+                    <circle class="pulse" cx="896.2" cy="458.8" r="52"></circle>
+                    <circle class="pin" cx="896.2" cy="458.8" r="20"></circle>
+                    <text class="lbl" x="935" y="466">Canada</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="loader-progress mt-10">
+          <p class="text-sm text-slate-400 mb-3 tracking-wide">Chargement…</p>
+          <div class="h-2 rounded-full bg-white/10 overflow-hidden border border-white/10">
+            <div id="loader-bar" class="h-full w-0 bg-gradient-to-r from-brand-500 to-cyber-500"></div>
+          </div>
+          <div class="mt-3 text-xs text-slate-500 tracking-widest uppercase">
+            <span id="loader-pct">0</span>%
+          </div>
         </div>
       </div>
     </div>
@@ -159,6 +237,10 @@
 
       <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
         <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+          <p class="text-sm sm:text-base text-slate-300 tracking-wide uppercase mb-8">
+            Turbo Tech Startup
+          </p>
+
           <div class="intervention-wrap mb-8">
             <div class="intervention-pill">
               <span class="dot"></span>
@@ -167,7 +249,7 @@
               Afrique · Europe · Amérique
             </div>
 
-            <div class="intervention-card mt-5">
+            <div id="hero-intervention-card" class="intervention-card mt-5">
               <div class="intervention-map" role="img" aria-label="Carte interactive des pays d’intervention">
                 <!-- Carte monde réelle (projection plate lon/lat → px du fichier source). Source fichier local assets/world-map.svg -->
                 <svg class="world-map-svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4378.13 2434.94" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
@@ -251,10 +333,6 @@
               </div>
             </div>
           </div>
-
-          <p class="text-sm sm:text-base text-slate-300 tracking-wide uppercase mb-6">
-            Turbo Tech Startup
-          </p>
 
           <h1 class="font-display font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-white leading-[1.05] tracking-tight mb-8">
             L'innovation IT

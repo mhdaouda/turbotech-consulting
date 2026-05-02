@@ -294,10 +294,10 @@ body.has-spotlight .spotlight { opacity: 1; }
   font-size: 0.85rem;
 }
 
-/* ---------- Loader ---------- */
+/* ---------- Loader (Hexahub-like staged reveal) ---------- */
 #page-loader {
   opacity: 1;
-  transition: opacity 500ms ease, visibility 500ms ease;
+  transition: opacity 520ms ease, visibility 520ms ease;
 }
 #page-loader.is-hidden {
   opacity: 0;
@@ -306,6 +306,97 @@ body.has-spotlight .spotlight { opacity: 1; }
 }
 #loader-bar {
   transition: width 180ms ease;
+}
+
+.loader-overlay {
+  isolation: isolate;
+}
+
+.loader-panel {
+  position: relative;
+  padding: 2rem 1.35rem 2.25rem;
+}
+
+.loader-panel-glow {
+  position: absolute;
+  inset: -55%;
+  background:
+    radial-gradient(circle at 45% 25%, rgba(16, 185, 129, 0.22), transparent 52%),
+    radial-gradient(circle at 72% 62%, rgba(34, 211, 238, 0.14), transparent 48%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.loader-panel-frame {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 28px 90px -42px rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.loader-panel-grid {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.75rem;
+  opacity: 0.38;
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.075) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 82% 72% at 50% 42%, black, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 82% 72% at 50% 42%, black, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.loader-stage-step {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(22px);
+  filter: blur(10px);
+  transition:
+    opacity 0.78s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.78s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.65s ease;
+  pointer-events: none;
+}
+
+.loader-stage-step.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  pointer-events: auto;
+}
+
+.loader-brand-line {
+  width: min(260px, 78%);
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.85), rgba(34, 211, 238, 0.85), transparent);
+}
+
+.loader-progress {
+  position: relative;
+  z-index: 2;
+}
+
+.intervention-map--loader {
+  min-height: 140px !important;
+  padding: 0.65rem !important;
+}
+
+.intervention-map--loader .world-map-svg {
+  max-height: min(38vh, 260px);
+}
+
+.loader-map-shell {
+  box-shadow: 0 24px 60px -28px rgba(16, 185, 129, 0.35);
 }
 
 /* Loader micro shimmer */
@@ -836,5 +927,13 @@ a.contact-info:hover {
 
   #page-loader::before {
     display: none !important;
+  }
+
+  .loader-stage-step {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+    pointer-events: auto !important;
   }
 }

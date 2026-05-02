@@ -30,57 +30,90 @@
     const pct = document.getElementById('loader-pct');
     if (!loader || !bar || !pct) return;
 
-    if (prefersReducedMotion()) {
-      bar.style.width = '100%';
-      pct.textContent = '100';
+    const stepBrand = document.getElementById('loader-step-brand');
+    const stepStartup = document.getElementById('loader-step-startup');
+    const stepZones = document.getElementById('loader-step-zones');
+    const stepMap = document.getElementById('loader-step-map');
+
+    const reveal = (el) => {
+      if (el) el.classList.add('is-visible');
+    };
+
+    const dismiss = () => {
+      if (loader.classList.contains('is-hidden')) return;
       loader.classList.add('is-hidden');
       document.body.classList.remove('is-loading');
       document.body.classList.add('is-loaded');
+    };
+
+    const timelineStart = performance.now();
+    /** Dernière étape (carte) + petite pause avant fermeture — aligné avec les timeouts CSS */
+    const MAP_STEP_MS = 2280;
+    const MAP_DWELL_MS = 850;
+
+    const runIntroTimeline = () => {
+      if (prefersReducedMotion()) {
+        reveal(stepBrand);
+        reveal(stepStartup);
+        reveal(stepZones);
+        reveal(stepMap);
+        return;
+      }
+      setTimeout(() => reveal(stepBrand), 380);
+      setTimeout(() => reveal(stepStartup), 980);
+      setTimeout(() => reveal(stepZones), 1580);
+      setTimeout(() => reveal(stepMap), MAP_STEP_MS);
+    };
+
+    runIntroTimeline();
+
+    if (prefersReducedMotion()) {
+      bar.style.width = '100%';
+      pct.textContent = '100';
+      window.addEventListener('load', () => setTimeout(dismiss, 280));
+      setTimeout(() => {
+        if (!loader.classList.contains('is-hidden')) dismiss();
+      }, 2800);
       return;
     }
 
     let current = 0;
-    let target = 72; // fast initial feedback
+    let target = 72;
     let raf = null;
-    let done = false;
+    let tickDone = false;
 
     const tick = () => {
-      // Ease towards target to feel "alive" even on fast loads.
       const speed = current < 65 ? 0.22 : 0.12;
       current += (target - current) * speed;
       const shown = Math.max(0, Math.min(99, Math.floor(current)));
       bar.style.width = shown + '%';
       pct.textContent = String(shown);
-
-      if (!done) raf = requestAnimationFrame(tick);
+      if (!tickDone) raf = requestAnimationFrame(tick);
     };
 
     raf = requestAnimationFrame(tick);
 
-    // When all resources are loaded, finish quickly then fade out.
     window.addEventListener('load', () => {
-      done = true;
+      tickDone = true;
       if (raf) cancelAnimationFrame(raf);
       bar.style.width = '100%';
       pct.textContent = '100';
 
-      // small delay for perceived smoothness
-      setTimeout(() => {
-        loader.classList.add('is-hidden');
-        document.body.classList.remove('is-loading');
-        document.body.classList.add('is-loaded');
-      }, 180);
+      const now = performance.now();
+      const sequenceEnd = timelineStart + MAP_STEP_MS + MAP_DWELL_MS;
+      const linger = Math.max(380, sequenceEnd - now);
+
+      setTimeout(dismiss, linger);
     });
 
-    // Safety: if "load" never fires for some reason, don't block the page.
     setTimeout(() => {
       if (loader.classList.contains('is-hidden')) return;
+      tickDone = true;
+      if (raf) cancelAnimationFrame(raf);
       bar.style.width = '100%';
       pct.textContent = '100';
-      loader.classList.add('is-hidden');
-      document.body.classList.remove('is-loading');
-      document.body.classList.add('is-loaded');
-    }, 6000);
+      dismiss();
+    }, 12000);
   }
 
   function initAOS() {
@@ -220,12 +253,15 @@
   }
 
   function initInterventionMap() {
-    const tip = document.getElementById('map-tip');
-    const svg = document.querySelector('.world-map-svg');
+    const card = document.getElementById('hero-intervention-card');
+    if (!card) return;
+
+    const svg = card.querySelector('.world-map-svg');
+    const tip = card.querySelector('#map-tip');
     if (!svg) return;
 
     const markers = Array.from(svg.querySelectorAll('.mk[data-country]'));
-    const chips = Array.from(document.querySelectorAll('.country-chip[data-country]'));
+    const chips = Array.from(card.querySelectorAll('.country-chip[data-country]'));
     const markerByCode = new Map(markers.map((m) => [m.getAttribute('data-country'), m]));
     const chipByCode = new Map(chips.map((c) => [c.getAttribute('data-country'), c]));
 
