@@ -16,6 +16,13 @@ body {
   letter-spacing: 0.01em;
 }
 
+/* Une seule zone de scroll pendant l’intro : évite deux barres à droite (page + overlay). */
+html.is-loading,
+body.is-loading {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 /* ---------- App reveal (fast modern load feel) ---------- */
 body.is-loading main,
 body.is-loading header,

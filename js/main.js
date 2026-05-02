@@ -7,6 +7,7 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
+    document.documentElement.classList.add('is-loading');
     document.body.classList.add('is-loading');
     initPageLoader();
     initAOS();
@@ -48,6 +49,7 @@
       timeouts.forEach(clearTimeout);
       document.removeEventListener('keydown', onEscape);
       loader.classList.add('is-hidden');
+      document.documentElement.classList.remove('is-loading');
       document.body.classList.remove('is-loading');
       document.body.classList.add('is-loaded');
       if (skipBtn) {
