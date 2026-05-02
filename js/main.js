@@ -26,94 +26,77 @@
 
   function initPageLoader() {
     const loader = document.getElementById('page-loader');
-    const bar = document.getElementById('loader-bar');
-    const pct = document.getElementById('loader-pct');
-    if (!loader || !bar || !pct) return;
+    const skipBtn = document.getElementById('loader-skip');
+    if (!loader) return;
 
     const stepBrand = document.getElementById('loader-step-brand');
     const stepStartup = document.getElementById('loader-step-startup');
     const stepZones = document.getElementById('loader-step-zones');
     const stepMap = document.getElementById('loader-step-map');
 
+    let dismissed = false;
+    const timeouts = [];
+
     const reveal = (el) => {
       if (el) el.classList.add('is-visible');
     };
 
     const dismiss = () => {
-      if (loader.classList.contains('is-hidden')) return;
+      if (dismissed) return;
+      dismissed = true;
+      timeouts.forEach(clearTimeout);
+      document.removeEventListener('keydown', onEscape);
       loader.classList.add('is-hidden');
       document.body.classList.remove('is-loading');
       document.body.classList.add('is-loaded');
+      if (skipBtn) {
+        skipBtn.disabled = true;
+        skipBtn.setAttribute('aria-hidden', 'true');
+      }
     };
+
+    const schedule = (fn, ms) => {
+      const id = setTimeout(() => {
+        if (!dismissed) fn();
+      }, ms);
+      timeouts.push(id);
+    };
+
+    skipBtn?.addEventListener('click', dismiss);
+
+    const onEscape = (e) => {
+      if (e.key === 'Escape') dismiss();
+    };
+    document.addEventListener('keydown', onEscape);
 
     const timelineStart = performance.now();
-    /** Dernière étape (carte) + petite pause avant fermeture — aligné avec les timeouts CSS */
-    const MAP_STEP_MS = 2280;
-    const MAP_DWELL_MS = 850;
-
-    const runIntroTimeline = () => {
-      if (prefersReducedMotion()) {
-        reveal(stepBrand);
-        reveal(stepStartup);
-        reveal(stepZones);
-        reveal(stepMap);
-        return;
-      }
-      setTimeout(() => reveal(stepBrand), 380);
-      setTimeout(() => reveal(stepStartup), 980);
-      setTimeout(() => reveal(stepZones), 1580);
-      setTimeout(() => reveal(stepMap), MAP_STEP_MS);
-    };
-
-    runIntroTimeline();
+    /** Carte visible à ~MAP_STEP_MS ; on la laisse MAP_DWELL_MS avant fermeture auto */
+    const MAP_STEP_MS = 3600;
+    const MAP_DWELL_MS = 2800;
 
     if (prefersReducedMotion()) {
-      bar.style.width = '100%';
-      pct.textContent = '100';
-      window.addEventListener('load', () => setTimeout(dismiss, 280));
-      setTimeout(() => {
-        if (!loader.classList.contains('is-hidden')) dismiss();
-      }, 2800);
+      reveal(stepBrand);
+      reveal(stepStartup);
+      reveal(stepZones);
+      reveal(stepMap);
+      window.addEventListener('load', () => schedule(dismiss, 400));
+      schedule(dismiss, 4500);
       return;
     }
 
-    let current = 0;
-    let target = 72;
-    let raf = null;
-    let tickDone = false;
-
-    const tick = () => {
-      const speed = current < 65 ? 0.22 : 0.12;
-      current += (target - current) * speed;
-      const shown = Math.max(0, Math.min(99, Math.floor(current)));
-      bar.style.width = shown + '%';
-      pct.textContent = String(shown);
-      if (!tickDone) raf = requestAnimationFrame(tick);
-    };
-
-    raf = requestAnimationFrame(tick);
+    schedule(() => reveal(stepBrand), 500);
+    schedule(() => reveal(stepStartup), 1450);
+    schedule(() => reveal(stepZones), 2500);
+    schedule(() => reveal(stepMap), MAP_STEP_MS);
 
     window.addEventListener('load', () => {
-      tickDone = true;
-      if (raf) cancelAnimationFrame(raf);
-      bar.style.width = '100%';
-      pct.textContent = '100';
-
       const now = performance.now();
       const sequenceEnd = timelineStart + MAP_STEP_MS + MAP_DWELL_MS;
-      const linger = Math.max(380, sequenceEnd - now);
-
-      setTimeout(dismiss, linger);
+      const linger = Math.max(650, sequenceEnd - now);
+      schedule(dismiss, linger);
     });
 
-    setTimeout(() => {
-      if (loader.classList.contains('is-hidden')) return;
-      tickDone = true;
-      if (raf) cancelAnimationFrame(raf);
-      bar.style.width = '100%';
-      pct.textContent = '100';
-      dismiss();
-    }, 12000);
+    schedule(dismiss, 18000);
   }
 
   function initAOS() {

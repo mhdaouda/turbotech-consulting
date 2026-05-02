@@ -304,10 +304,6 @@ body.has-spotlight .spotlight { opacity: 1; }
   visibility: hidden;
   pointer-events: none;
 }
-#loader-bar {
-  transition: width 180ms ease;
-}
-
 .loader-overlay {
   isolation: isolate;
 }
@@ -381,9 +377,43 @@ body.has-spotlight .spotlight { opacity: 1; }
   background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.85), rgba(34, 211, 238, 0.85), transparent);
 }
 
-.loader-progress {
+.loader-actions {
   position: relative;
   z-index: 2;
+}
+
+.loader-skip {
+  appearance: none;
+  cursor: pointer;
+  padding: 0.65rem 1.35rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(226, 232, 240, 0.92);
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.loader-skip:hover {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: rgba(16, 185, 129, 0.12);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.loader-skip:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.35);
+}
+
+.loader-skip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .intervention-map--loader {
@@ -915,10 +945,6 @@ a.contact-info:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  #loader-bar {
-    transition: none !important;
   }
 
   .spotlight {
