@@ -84,7 +84,7 @@
       return;
     }
 
-    schedule(() => reveal(stepBrand), 500);
+    schedule(() => reveal(stepBrand), 120);
     schedule(() => reveal(stepStartup), 1450);
     schedule(() => reveal(stepZones), 2500);
     schedule(() => reveal(stepMap), MAP_STEP_MS);
