@@ -99,6 +99,97 @@ body.has-spotlight .spotlight { opacity: 1; }
   50% { transform: scale(1.12); opacity: 0.7; }
 }
 
+/* ---------- Hero carousel (carte / accroche / texte) ---------- */
+.hero-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-carousel-track {
+  display: flex;
+  width: 300%;
+  transition: transform 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.hero-carousel-slide {
+  flex: 0 0 calc(100% / 3);
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.hero-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.hero-carousel-arrow {
+  appearance: none;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(226, 232, 240, 0.95);
+  display: grid;
+  place-items: center;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.hero-carousel-arrow:hover {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: rgba(16, 185, 129, 0.12);
+  color: #fff;
+}
+
+.hero-carousel-arrow:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.35);
+}
+
+.hero-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hero-carousel-dot {
+  appearance: none;
+  cursor: pointer;
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  transition: width 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-carousel-dot:hover {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: rgba(16, 185, 129, 0.22);
+}
+
+.hero-carousel-dot.is-active {
+  width: 1.35rem;
+  border-color: rgba(16, 185, 129, 0.65);
+  background: linear-gradient(90deg, #10b981, #22d3ee);
+}
+
+.hero-carousel-dot:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.35);
+}
+
 .intervention-card {
   width: 100%;
   max-width: 920px;
@@ -961,5 +1052,9 @@ a.contact-info:hover {
     filter: none !important;
     transition: none !important;
     pointer-events: auto !important;
+  }
+
+  .hero-carousel-track {
+    transition: none !important;
   }
 }

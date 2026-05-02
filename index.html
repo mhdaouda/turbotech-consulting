@@ -237,7 +237,11 @@
             Turbo Tech Startup
           </p>
 
-          <div class="intervention-wrap mb-8">
+          <div id="hero-carousel" class="hero-carousel mx-auto mb-10 w-full max-w-4xl" data-autoplay-ms="6500" data-carousel-slides="3">
+            <div class="hero-carousel-viewport">
+              <div id="hero-carousel-track" class="hero-carousel-track">
+                <article class="hero-carousel-slide px-2 py-4 sm:px-4 sm:py-6" data-carousel-slide="0" aria-label="Zones d’intervention et carte">
+                  <div class="intervention-wrap mb-0">
             <div class="intervention-pill">
               <span class="dot"></span>
               Zones d'intervention
@@ -328,9 +332,11 @@
                 <p class="country-hint">Survole ou clique un pays pour le mettre en évidence.</p>
               </div>
             </div>
-          </div>
+                  </div>
+                </article>
 
-          <h1 class="font-display font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-white leading-[1.05] tracking-tight mb-8">
+                <article class="hero-carousel-slide px-4 py-8 sm:py-12 flex items-center justify-center text-center" data-carousel-slide="1" aria-label="Accroche principale">
+                  <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white leading-[1.08] tracking-tight mb-0">
             L'innovation IT
             <br />
             <span class="bg-gradient-to-r from-brand-400 via-cyber-400 to-brand-500 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
@@ -339,10 +345,30 @@
             <br />
             de votre entreprise.
           </h1>
+                </article>
 
-          <p class="text-lg lg:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                <article class="hero-carousel-slide px-4 py-8 sm:py-12 flex items-center justify-center text-center" data-carousel-slide="2" aria-label="Présentation">
+                  <p class="text-lg lg:text-xl text-slate-400 max-w-2xl mx-auto mb-0 leading-relaxed">
             <strong class="text-slate-200">TurboTech Consulting</strong> accompagne les entreprises africaines dans leur transformation digitale. Développement, infrastructure, conseil et cybersécurité — sous un seul toit.
           </p>
+                </article>
+              </div>
+            </div>
+
+            <div class="hero-carousel-controls" role="group" aria-label="Navigation du carrousel">
+              <button type="button" id="hero-carousel-prev" class="hero-carousel-arrow" aria-label="Slide précédent">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+              </button>
+              <div id="hero-carousel-dots" class="hero-carousel-dots" role="tablist" aria-label="Choisir un slide">
+                <button type="button" class="hero-carousel-dot is-active" data-carousel-dot="0" role="tab" aria-selected="true" aria-label="Carte et zones"></button>
+                <button type="button" class="hero-carousel-dot" data-carousel-dot="1" role="tab" aria-selected="false" aria-label="Innovation IT"></button>
+                <button type="button" class="hero-carousel-dot" data-carousel-dot="2" role="tab" aria-selected="false" aria-label="Présentation"></button>
+              </div>
+              <button type="button" id="hero-carousel-next" class="hero-carousel-arrow" aria-label="Slide suivant">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
 
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="#contact" class="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-brand-500 to-cyber-500 hover:from-brand-400 hover:to-cyber-400 text-black font-bold uppercase tracking-wider rounded-lg transition-all shadow-xl shadow-brand-500/40 hover:shadow-brand-500/70 hover:-translate-y-1">

@@ -18,6 +18,7 @@
     initScrollProgress();
     initSpotlight();
     initInterventionMap();
+    initHeroCarousel();
   });
 
   function prefersReducedMotion() {
@@ -316,5 +317,94 @@
 
     // Default highlight
     activate('BJ', false);
+  }
+
+  function initHeroCarousel() {
+    const root = document.getElementById('hero-carousel');
+    const track = document.getElementById('hero-carousel-track');
+    const prev = document.getElementById('hero-carousel-prev');
+    const next = document.getElementById('hero-carousel-next');
+    const dotsWrap = document.getElementById('hero-carousel-dots');
+    if (!root || !track || !dotsWrap) return;
+
+    const slides = Array.from(track.querySelectorAll('.hero-carousel-slide'));
+    const dots = Array.from(dotsWrap.querySelectorAll('[data-carousel-dot]'));
+    const n = slides.length;
+    if (n === 0 || dots.length !== n) return;
+
+    let index = 0;
+    let timer = null;
+    const autoplayMs = Math.max(3500, Number(root.dataset.autoplayMs) || 6500);
+
+    const applyTransform = () => {
+      track.style.transform = `translateX(-${(index * 100) / n}%)`;
+    };
+
+    const syncA11y = () => {
+      slides.forEach((s, j) => {
+        const hidden = j !== index;
+        s.setAttribute('aria-hidden', hidden ? 'true' : 'false');
+        if (hidden) {
+          s.setAttribute('inert', '');
+        } else {
+          s.removeAttribute('inert');
+        }
+      });
+      dots.forEach((d, j) => {
+        const on = j === index;
+        d.classList.toggle('is-active', on);
+        d.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+    };
+
+    const go = (i) => {
+      index = ((i % n) + n) % n;
+      applyTransform();
+      syncA11y();
+    };
+
+    const stopAutoplay = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      if (prefersReducedMotion()) return;
+      timer = setInterval(() => go(index + 1), autoplayMs);
+    };
+
+    prev?.addEventListener('click', () => {
+      go(index - 1);
+      startAutoplay();
+    });
+    next?.addEventListener('click', () => {
+      go(index + 1);
+      startAutoplay();
+    });
+
+    dots.forEach((d, j) => {
+      d.addEventListener('click', () => {
+        go(j);
+        startAutoplay();
+      });
+    });
+
+    root.addEventListener('mouseenter', stopAutoplay);
+    root.addEventListener('mouseleave', startAutoplay);
+
+    root.addEventListener('focusin', stopAutoplay);
+    root.addEventListener('focusout', () => {
+      window.setTimeout(() => {
+        if (!root.contains(document.activeElement)) startAutoplay();
+      }, 0);
+    });
+
+    track.style.width = `${n * 100}%`;
+
+    go(0);
+    startAutoplay();
   }
 })();
