@@ -76,10 +76,26 @@
         },
       };
     </script>
+
+    <!-- Verrou scroll tout de suite : évite deux barres de défilement (page + intro) avant le JS principal -->
+    <style>
+      html.is-loading {
+        overflow: hidden;
+        overscroll-behavior: none;
+        height: 100%;
+      }
+    </style>
+    <script>
+      document.documentElement.classList.add('is-loading');
+    </script>
   </head>
   <body class="bg-black text-slate-200 font-sans antialiased overflow-x-hidden">
+    <script>
+      document.body.classList.add('is-loading');
+    </script>
     <!-- Loader façon Hexahub : fond design → nom → startup → zones → carte -->
-    <div id="page-loader" class="loader-overlay fixed inset-0 z-[9999] bg-black flex items-center justify-center overflow-y-auto overflow-x-hidden px-4 py-10">
+    <div id="page-loader" class="loader-overlay fixed inset-0 z-[9999] bg-black flex flex-col overflow-hidden">
+      <div class="loader-scroll flex-1 min-h-0 flex items-center justify-center px-4 py-10">
       <div class="loader-panel relative w-full max-w-xl mx-auto text-center">
         <div class="loader-panel-glow"></div>
         <div class="loader-panel-frame"></div>
@@ -172,6 +188,7 @@
             Passer l'introduction
           </button>
         </div>
+      </div>
       </div>
     </div>
 

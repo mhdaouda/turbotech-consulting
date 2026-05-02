@@ -410,6 +410,20 @@ body.has-spotlight .spotlight { opacity: 1; }
   isolation: isolate;
 }
 
+/* Un seul conteneur scrollable sous l’intro ; barres masquées (scroll souris/tactile inchangé). */
+.loader-scroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.loader-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
 .loader-panel {
   position: relative;
   padding: 2rem 1.35rem 2.25rem;
