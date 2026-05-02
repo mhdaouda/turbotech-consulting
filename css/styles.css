@@ -103,11 +103,14 @@ body.has-spotlight .spotlight { opacity: 1; }
 .hero-carousel-viewport {
   overflow: hidden;
   width: 100%;
-  border-radius: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border-radius: 1.75rem;
+  border: none;
+  background:
+    radial-gradient(ellipse 85% 70% at 50% 40%, rgba(16, 185, 129, 0.06), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 80% 80%, rgba(34, 211, 238, 0.05), transparent 50%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
 .hero-carousel-track {
@@ -128,7 +131,8 @@ body.has-spotlight .spotlight { opacity: 1; }
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin-top: 1.25rem;
+  margin-top: 1rem;
+  opacity: 0.92;
 }
 
 .hero-carousel-arrow {
@@ -137,8 +141,8 @@ body.has-spotlight .spotlight { opacity: 1; }
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
   color: rgba(226, 232, 240, 0.95);
   display: grid;
   place-items: center;
@@ -169,8 +173,8 @@ body.has-spotlight .spotlight { opacity: 1; }
   height: 0.55rem;
   padding: 0;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
   transition: width 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 }
 
