@@ -289,25 +289,6 @@ body.has-spotlight .spotlight { opacity: 1; }
   fill: rgba(34,211,238,0.18);
 }
 
-.map-attribution {
-  position: absolute;
-  left: 0.75rem;
-  right: 0.75rem;
-  bottom: 0.55rem;
-  margin: 0;
-  font-size: 0.72rem;
-  line-height: 1.35;
-  color: rgba(148,163,184,0.85);
-}
-.map-attribution a {
-  color: rgba(110,231,183,0.95);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.map-attribution a:hover {
-  color: #fff;
-}
-
 .zone-label {
   flex-basis: 100%;
   margin-top: 0.35rem;
