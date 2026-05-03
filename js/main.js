@@ -374,7 +374,7 @@
 
     const startAutoplay = () => {
       stopAutoplay();
-      if (prefersReducedMotion()) return;
+      if (document.hidden) return;
       timer = setInterval(() => go(index + 1), autoplayMs);
     };
 
@@ -394,14 +394,22 @@
       });
     });
 
-    root.addEventListener('mouseenter', stopAutoplay);
-    root.addEventListener('mouseleave', startAutoplay);
+    /* Pause uniquement sur les flèches / points : la carte ne bloque plus l’autoplay */
+    const controls = root.querySelector('.hero-carousel-controls');
+    if (controls) {
+      controls.addEventListener('mouseenter', stopAutoplay);
+      controls.addEventListener('mouseleave', startAutoplay);
+      controls.addEventListener('focusin', stopAutoplay);
+      controls.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+          if (!controls.contains(document.activeElement)) startAutoplay();
+        }, 0);
+      });
+    }
 
-    root.addEventListener('focusin', stopAutoplay);
-    root.addEventListener('focusout', () => {
-      window.setTimeout(() => {
-        if (!root.contains(document.activeElement)) startAutoplay();
-      }, 0);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoplay();
+      else startAutoplay();
     });
 
     track.style.width = `${n * 100}%`;
