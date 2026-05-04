@@ -467,11 +467,254 @@ body.has-spotlight .spotlight { opacity: 1; }
   pointer-events: auto;
 }
 
+/* Intro « TurboTech Consulting » : mouvement plus premium */
+.loader-stage-step--brand {
+  position: relative;
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.92s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.72s ease;
+}
+
+.loader-brand-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12em;
+  perspective: 900px;
+}
+
+.loader-brand-word {
+  display: block;
+  opacity: 0;
+  transform: translate3d(0, 36px, -40px) rotateX(-14deg);
+  filter: blur(14px);
+  backface-visibility: hidden;
+}
+
+.loader-brand-word--b {
+  background: linear-gradient(105deg, #6ee7b7 0%, #34d399 32%, #22d3ee 62%, #34d399 88%, #10b981 100%);
+  background-size: 140% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#loader-step-brand.is-visible .loader-brand-word--b {
+  animation:
+    loaderBrandWordIn 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards,
+    loaderBrandGradientShift 6s ease-in-out 1s infinite alternate;
+}
+
+@keyframes loaderBrandGradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+#loader-step-brand.is-visible .loader-brand-word--a {
+  animation: loaderBrandWordIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.06s forwards;
+}
+
+@keyframes loaderBrandWordIn {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateX(0deg);
+    filter: blur(0);
+  }
+}
+
+.loader-brand-title {
+  position: relative;
+  z-index: 1;
+}
+
+.loader-brand-glow {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(440px, 95%);
+  height: clamp(100px, 28vw, 160px);
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(ellipse 55% 65% at 50% 50%, rgba(16, 185, 129, 0.42), transparent 72%),
+    radial-gradient(ellipse 40% 50% at 62% 38%, rgba(34, 211, 238, 0.22), transparent 68%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(2px);
+}
+
+#loader-step-brand.is-visible .loader-brand-glow {
+  animation: loaderBrandGlowIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    loaderBrandGlowPulse 2.8s ease-in-out 1s infinite alternate;
+}
+
+@keyframes loaderBrandGlowIn {
+  to { opacity: 1; }
+}
+
+@keyframes loaderBrandGlowPulse {
+  from {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+  to {
+    opacity: 0.95;
+    transform: translate(-50%, -52%) scale(1.06);
+  }
+}
+
 .loader-brand-line {
-  width: min(260px, 78%);
-  height: 2px;
+  position: relative;
+  z-index: 1;
+  width: min(280px, 82%);
+  height: 3px;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.85), rgba(34, 211, 238, 0.85), transparent);
+  transform: scaleX(0);
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(16, 185, 129, 0.95),
+    rgba(34, 211, 238, 0.95),
+    rgba(16, 185, 129, 0.95),
+    transparent
+  );
+  box-shadow:
+    0 0 24px rgba(16, 185, 129, 0.45),
+    0 0 48px rgba(34, 211, 238, 0.12);
+}
+
+#loader-step-brand.is-visible .loader-brand-line {
+  animation: loaderBrandUnderline 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.42s forwards;
+}
+
+@keyframes loaderBrandUnderline {
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Étapes texte */
+.loader-startup-kicker {
+  opacity: 0;
+  transform: translateY(18px);
+  letter-spacing: 0.42em;
+}
+
+#loader-step-startup.is-visible .loader-startup-kicker {
+  animation: loaderKickerIn 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes loaderKickerIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.25em;
+  }
+}
+
+.loader-startup-desc {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(8px);
+}
+
+#loader-step-startup.is-visible .loader-startup-desc {
+  animation: loaderFadeLift 0.88s cubic-bezier(0.22, 1, 0.36, 1) 0.14s forwards;
+}
+
+@keyframes loaderFadeLift {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.loader-zones-pill {
+  opacity: 0;
+  transform: scale(0.92) translateY(12px);
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+}
+
+#loader-step-zones.is-visible .loader-zones-pill {
+  animation: loaderZonesPop 0.75s cubic-bezier(0.34, 1.45, 0.52, 1) forwards;
+}
+
+@keyframes loaderZonesPop {
+  70% {
+    transform: scale(1.03) translateY(0);
+    box-shadow: 0 0 28px rgba(16, 185, 129, 0.22);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.12);
+  }
+}
+
+/* Carte loader */
+.loader-map-shell {
+  opacity: 0;
+  transform: translateY(28px) scale(0.94);
+  filter: brightness(0.85) blur(12px);
+}
+
+#loader-step-map.is-visible .loader-map-shell {
+  animation: loaderMapShellIn 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes loaderMapShellIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: brightness(1) blur(0);
+    box-shadow:
+      0 24px 60px -28px rgba(16, 185, 129, 0.38),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+}
+
+#page-loader .world-map-svg .markers > .mk {
+  opacity: 0;
+}
+
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk {
+  animation: loaderMkReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk:nth-child(1) { animation-delay: 0.12s; }
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk:nth-child(2) { animation-delay: 0.18s; }
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk:nth-child(3) { animation-delay: 0.24s; }
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk:nth-child(4) { animation-delay: 0.30s; }
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk:nth-child(5) { animation-delay: 0.36s; }
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk:nth-child(6) { animation-delay: 0.42s; }
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk:nth-child(7) { animation-delay: 0.48s; }
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk:nth-child(8) { animation-delay: 0.54s; }
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk:nth-child(9) { animation-delay: 0.60s; }
+#page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk:nth-child(10) { animation-delay: 0.66s; }
+
+@keyframes loaderMkReveal {
+  to {
+    opacity: 1;
+  }
+}
+
+#page-loader #loader-step-map.is-visible .world-map-raster {
+  animation: loaderMapRasterBreath 4s ease-in-out 1s infinite alternate;
+}
+
+@keyframes loaderMapRasterBreath {
+  from {
+    filter: brightness(0.42) contrast(1.08) saturate(0);
+    opacity: 0.88;
+  }
+  to {
+    filter: brightness(0.5) contrast(1.06) saturate(0.06);
+    opacity: 0.96;
+  }
 }
 
 .loader-actions {
@@ -520,10 +763,6 @@ body.has-spotlight .spotlight { opacity: 1; }
 
 .intervention-map--loader .world-map-svg {
   max-height: min(38vh, 260px);
-}
-
-.loader-map-shell {
-  box-shadow: 0 24px 60px -28px rgba(16, 185, 129, 0.35);
 }
 
 /* Loader micro shimmer */
@@ -1058,6 +1297,61 @@ a.contact-info:hover {
     filter: none !important;
     transition: none !important;
     pointer-events: auto !important;
+  }
+
+  #loader-step-brand.is-visible .loader-brand-word--a,
+  #loader-step-brand.is-visible .loader-brand-word--b {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  #loader-step-brand.is-visible .loader-brand-line {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: scaleX(1) !important;
+  }
+
+  #loader-step-brand.is-visible .loader-brand-glow {
+    animation: none !important;
+    opacity: 0.55 !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+
+  #loader-step-startup.is-visible .loader-startup-kicker,
+  #loader-step-startup.is-visible .loader-startup-desc {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    letter-spacing: 0.25em !important;
+  }
+
+  #loader-step-zones.is-visible .loader-zones-pill {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  #loader-step-map.is-visible .loader-map-shell {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    box-shadow: 0 24px 60px -28px rgba(16, 185, 129, 0.35);
+  }
+
+  #page-loader #loader-step-map.is-visible .world-map-svg .markers > .mk {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  #page-loader #loader-step-map.is-visible .world-map-raster {
+    animation: none !important;
+    filter: brightness(0.42) contrast(1.08) saturate(0) !important;
+    opacity: 0.92 !important;
   }
 
   .hero-carousel-track {
