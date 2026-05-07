@@ -20,6 +20,7 @@
     initSpotlight();
     initInterventionMap();
     initHeroCarousel();
+    initContactForm();
   });
 
   function prefersReducedMotion() {
@@ -416,5 +417,77 @@
 
     go(0);
     startAutoplay();
+  }
+
+  function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const status = document.getElementById('contact-form-status');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    const setStatus = (msg, tone) => {
+      if (!status) return;
+      status.textContent = msg;
+      status.classList.remove('hidden');
+      status.classList.toggle('text-emerald-300', tone === 'ok');
+      status.classList.toggle('text-rose-300', tone === 'error');
+      status.classList.toggle('text-slate-400', tone !== 'ok' && tone !== 'error');
+    };
+
+    const buildMailto = (fd) => {
+      const lines = [
+        `Nom: ${fd.get('name') || ''}`,
+        `Email: ${fd.get('email') || ''}`,
+        `Téléphone: ${fd.get('phone') || ''}`,
+        `Sujet: ${fd.get('subject') || ''}`,
+        '',
+        String(fd.get('message') || ''),
+      ];
+      const subject = `[Site] ${fd.get('subject') || 'Demande de contact'}`;
+      const body = lines.join('\n');
+      return `mailto:contact@turbotechconsulting.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        setStatus('Merci de compléter les champs obligatoires.', 'error');
+        return;
+      }
+
+      const endpoint = (form.getAttribute('data-form-endpoint') || '').trim();
+      const fd = new FormData(form);
+
+      if (submitBtn) submitBtn.disabled = true;
+      setStatus('Envoi en cours…', 'neutral');
+
+      try {
+        if (!endpoint) {
+          // Fallback sans backend : ouvre le client mail avec le contenu prérempli.
+          window.location.href = buildMailto(fd);
+          setStatus('Ouverture de votre messagerie…', 'ok');
+          return;
+        }
+
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: fd,
+        });
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        form.reset();
+        setStatus('Merci ! Votre message a bien été envoyé.', 'ok');
+      } catch (err) {
+        setStatus("Impossible d'envoyer le formulaire. Essayez par e-mail ou WhatsApp.", 'error');
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
   }
 })();
