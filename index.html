@@ -816,7 +816,8 @@
               id="contact-form"
               class="space-y-5"
               data-aos="fade-left"
-              data-form-endpoint=""
+              action=""
+              method="POST"
               novalidate
             >
               <div>
@@ -848,12 +849,23 @@
                 <label class="block text-sm text-slate-300 mb-2">Message</label>
                 <textarea name="message" rows="5" required class="form-input" placeholder="Décrivez-nous votre projet..."></textarea>
               </div>
+              <input type="hidden" name="_subject" value="Nouveau message — TurboTech Consulting" />
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
               <button type="submit" class="w-full py-4 bg-gradient-to-r from-brand-500 to-cyber-500 hover:from-brand-400 hover:to-cyber-400 text-black font-bold uppercase tracking-wider rounded-xl transition-all shadow-xl shadow-brand-500/40 hover:shadow-brand-500/70 hover:-translate-y-0.5">
                 <i class="fas fa-paper-plane mr-2"></i>
                 Envoyer ma demande
               </button>
               <p id="contact-form-status" class="text-sm text-slate-400 mt-3 hidden" role="status" aria-live="polite"></p>
             </form>
+
+            <div id="contact-success" class="contact-success hidden" role="dialog" aria-modal="true" aria-labelledby="contact-success-title">
+              <div class="contact-success__backdrop" data-close-contact-success="true"></div>
+              <div class="contact-success__panel">
+                <h3 id="contact-success-title" class="contact-success__title">Message envoyé !</h3>
+                <p class="contact-success__desc">Je vous répondrai dans les plus brefs délais.</p>
+                <button type="button" class="contact-success__close" data-close-contact-success="true">Fermer</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

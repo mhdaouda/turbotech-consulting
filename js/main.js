@@ -425,6 +425,7 @@
 
     const status = document.getElementById('contact-form-status');
     const submitBtn = form.querySelector('button[type="submit"]');
+    const success = document.getElementById('contact-success');
 
     const setStatus = (msg, tone) => {
       if (!status) return;
@@ -435,19 +436,27 @@
       status.classList.toggle('text-slate-400', tone !== 'ok' && tone !== 'error');
     };
 
-    const buildMailto = (fd) => {
-      const lines = [
-        `Nom: ${fd.get('name') || ''}`,
-        `Email: ${fd.get('email') || ''}`,
-        `Téléphone: ${fd.get('phone') || ''}`,
-        `Sujet: ${fd.get('subject') || ''}`,
-        '',
-        String(fd.get('message') || ''),
-      ];
-      const subject = `[Site] ${fd.get('subject') || 'Demande de contact'}`;
-      const body = lines.join('\n');
-      return `mailto:contact@turbotechconsulting.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const openSuccess = () => {
+      if (!success) return;
+      success.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
     };
+
+    const closeSuccess = () => {
+      if (!success) return;
+      success.classList.add('hidden');
+      document.body.style.overflow = '';
+    };
+
+    success?.addEventListener('click', (e) => {
+      const t = e.target;
+      if (!(t instanceof HTMLElement)) return;
+      if (t.getAttribute('data-close-contact-success') === 'true') closeSuccess();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSuccess();
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -457,20 +466,19 @@
         return;
       }
 
-      const endpoint = (form.getAttribute('data-form-endpoint') || '').trim();
       const fd = new FormData(form);
+      if (fd.get('_gotcha')) return;
+
+      const endpoint = (form.getAttribute('action') || '').trim();
+      if (!endpoint) {
+        setStatus("Formulaire non configuré : ajoute l'URL d'envoi dans l'attribut action.", 'error');
+        return;
+      }
 
       if (submitBtn) submitBtn.disabled = true;
       setStatus('Envoi en cours…', 'neutral');
 
       try {
-        if (!endpoint) {
-          // Fallback sans backend : ouvre le client mail avec le contenu prérempli.
-          window.location.href = buildMailto(fd);
-          setStatus('Ouverture de votre messagerie…', 'ok');
-          return;
-        }
-
         const res = await fetch(endpoint, {
           method: 'POST',
           headers: { Accept: 'application/json' },
@@ -482,7 +490,9 @@
         }
 
         form.reset();
-        setStatus('Merci ! Votre message a bien été envoyé.', 'ok');
+        setStatus('', 'neutral');
+        if (status) status.classList.add('hidden');
+        openSuccess();
       } catch (err) {
         setStatus("Impossible d'envoyer le formulaire. Essayez par e-mail ou WhatsApp.", 'error');
       } finally {
