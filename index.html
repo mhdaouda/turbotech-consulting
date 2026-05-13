@@ -622,70 +622,153 @@
       </div>
     </section>
 
-    <section id="projects" class="py-24 lg:py-32 relative">
+    <section id="projects" class="py-24 lg:py-32 relative portfolio-section">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 gap-6" data-aos="fade-up">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-14 gap-8" data-aos="fade-up">
           <div class="max-w-2xl">
-            <span class="inline-block px-3 py-1 mb-4 text-xs font-semibold uppercase tracking-wider text-cyber-400 bg-cyber-500/10 rounded-full">Réalisations</span>
+            <span class="inline-block px-3 py-1 mb-4 text-xs font-semibold uppercase tracking-wider text-cyber-400 bg-cyber-500/10 rounded-full border border-cyber-500/20">Réalisations</span>
             <h2 class="font-display text-4xl lg:text-5xl font-bold text-white leading-tight">
-              Quelques projets dont nous sommes <span class="text-cyber-400">fiers</span>.
+              Des livrables <span class="text-cyber-400">concrets</span>, alignés sur votre ambition.
             </h2>
+            <p class="mt-4 text-lg text-slate-400 max-w-xl">
+              Mise en avant de projets issus du même parcours que le
+              <a href="https://www.daoudayinde.com/projets.html" target="_blank" rel="noopener noreferrer" class="text-brand-400 hover:text-brand-300 underline underline-offset-2">portfolio projets</a>
+              (noms, visuels et descriptions repris à l’identique).
+            </p>
           </div>
-          <a href="#contact" class="text-brand-400 hover:text-brand-300 font-semibold inline-flex items-center gap-2">
-            Voir tous nos projets
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          <a href="https://www.daoudayinde.com/projets.html" target="_blank" rel="noopener noreferrer" class="portfolio-cta-external text-brand-400 hover:text-brand-300 font-semibold inline-flex items-center gap-2 shrink-0">
+            Voir le portfolio complet
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </a>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="project-card" data-aos="zoom-in" data-aos-delay="0">
-            <div class="project-img bg-gradient-to-br from-brand-600 to-cyber-500"></div>
-            <div class="project-content">
-              <div class="text-xs font-semibold uppercase tracking-wider text-brand-300 mb-2">Plateforme Web</div>
-              <h3 class="text-xl font-bold text-white mb-2">Portail e-commerce ABC</h3>
-              <p class="text-sm text-slate-400">Marketplace B2B avec 200+ vendeurs et paiement mobile money intégré.</p>
+        <div class="portfolio-grid">
+          <article class="portfolio-card" data-aos="fade-up" data-aos-delay="0">
+            <div class="portfolio-card__media">
+              <div class="portfolio-card__placeholder portfolio-card__placeholder--flash" role="img" aria-label="FlashCoder Academy">⚡ FlashCoder</div>
+              <span class="portfolio-card__year">2026</span>
             </div>
-          </div>
-          <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
-            <div class="project-img bg-gradient-to-br from-purple-600 to-brand-500"></div>
-            <div class="project-content">
-              <div class="text-xs font-semibold uppercase tracking-wider text-brand-300 mb-2">Application Mobile</div>
-              <h3 class="text-xl font-bold text-white mb-2">App de livraison XYZ</h3>
-              <p class="text-sm text-slate-400">App iOS/Android avec géolocalisation temps réel et 10k+ utilisateurs actifs.</p>
+            <div class="portfolio-card__body">
+              <span class="portfolio-card__tag">Plateforme &amp; formation</span>
+              <h3 class="portfolio-card__title">FlashCoder Academy</h3>
+              <p class="portfolio-card__desc">Plateforme de formation pensée pour aider les utilisateurs à apprendre rapidement les nouvelles technologies, avec de la pratique, des révisions et des exercices. Le contenu couvre aussi des sujets comme la finance.</p>
+              <ul class="portfolio-card__chips" aria-label="Environnement technique">
+                <li>Formations</li><li>Exercices</li><li>Playground</li><li>Tech</li><li>Finance</li>
+              </ul>
+              <div class="portfolio-card__actions">
+                <a href="https://www.flashcoderacademy.com/" target="_blank" rel="noopener noreferrer" class="portfolio-card__link">Voir le site</a>
+              </div>
             </div>
-          </div>
-          <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
-            <div class="project-img bg-gradient-to-br from-cyber-500 to-emerald-500"></div>
-            <div class="project-content">
-              <div class="text-xs font-semibold uppercase tracking-wider text-brand-300 mb-2">Infrastructure</div>
-              <h3 class="text-xl font-bold text-white mb-2">Refonte réseau Banque DEF</h3>
-              <p class="text-sm text-slate-400">Modernisation du réseau de 12 agences avec haute disponibilité et redondance.</p>
+          </article>
+
+          <article class="portfolio-card" data-aos="fade-up" data-aos-delay="80">
+            <div class="portfolio-card__media">
+              <div class="portfolio-card__placeholder portfolio-card__placeholder--equip" role="img" aria-label="Gestion des équipements">🏢 ÉQUIP</div>
+              <span class="portfolio-card__year">2025</span>
             </div>
-          </div>
-          <div class="project-card" data-aos="zoom-in" data-aos-delay="0">
-            <div class="project-img bg-gradient-to-br from-orange-500 to-pink-500"></div>
-            <div class="project-content">
-              <div class="text-xs font-semibold uppercase tracking-wider text-brand-300 mb-2">Cybersécurité</div>
-              <h3 class="text-xl font-bold text-white mb-2">Audit Assurance GHI</h3>
-              <p class="text-sm text-slate-400">Audit complet de sécurité et plan de remédiation sur 6 mois.</p>
+            <div class="portfolio-card__body">
+              <span class="portfolio-card__tag">Application web</span>
+              <h3 class="portfolio-card__title">Gestion des Équipements</h3>
+              <p class="portfolio-card__desc">Notre application web de gestion des équipements est une solution centralisée et efficace, pensée pour fluidifier l’administration des ressources matérielles au sein de votre organisation. Fonctionnalités essentielles : inventaire intelligent, gestion des prêts et retours, maintenance proactive, notifications intelligentes et tableau de bord analytique.</p>
+              <ul class="portfolio-card__chips" aria-label="Environnement technique">
+                <li>Java JEE</li><li>React</li><li>MySQL</li><li>PHP</li><li>Tailwind</li>
+              </ul>
+              <div class="portfolio-card__actions">
+                <a href="https://www.daoudayinde.com/projets.html" target="_blank" rel="noopener noreferrer" class="portfolio-card__link portfolio-card__link--muted">Détails sur le portfolio</a>
+              </div>
             </div>
-          </div>
-          <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
-            <div class="project-img bg-gradient-to-br from-blue-700 to-purple-600"></div>
-            <div class="project-content">
-              <div class="text-xs font-semibold uppercase tracking-wider text-brand-300 mb-2">SaaS</div>
-              <h3 class="text-xl font-bold text-white mb-2">ERP Coopérative JKL</h3>
-              <p class="text-sm text-slate-400">Système de gestion sur-mesure pour 500+ producteurs agricoles.</p>
+          </article>
+
+          <article class="portfolio-card" data-aos="fade-up" data-aos-delay="160">
+            <div class="portfolio-card__media">
+              <div class="portfolio-card__placeholder portfolio-card__placeholder--rh" role="img" aria-label="Plateforme de gestion RH">👥 RH</div>
+              <span class="portfolio-card__year">2025</span>
             </div>
-          </div>
-          <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
-            <div class="project-img bg-gradient-to-br from-emerald-600 to-cyan-500"></div>
-            <div class="project-content">
-              <div class="text-xs font-semibold uppercase tracking-wider text-brand-300 mb-2">Formation</div>
-              <h3 class="text-xl font-bold text-white mb-2">Programme MNO</h3>
-              <p class="text-sm text-slate-400">Formation cybersécurité pour 200 collaborateurs d'une multinationale.</p>
+            <div class="portfolio-card__body">
+              <span class="portfolio-card__tag">Ressources humaines</span>
+              <h3 class="portfolio-card__title">Plateforme de gestion RH</h3>
+              <p class="portfolio-card__desc">Plateforme de gestion RH – simplifiez la gestion des ressources humaines. Notre plateforme RH en ligne est une solution complète et intuitive dédiée à la gestion des ressources humaines pour les entreprises de toutes tailles. Conçue pour optimiser les processus internes, elle propose une suite d’outils performants pour faciliter le travail des responsables RH et des managers.</p>
+              <ul class="portfolio-card__chips" aria-label="Environnement technique">
+                <li>Java JEE</li><li>MySQL</li><li>PHP</li><li>Tailwind</li><li>API Web</li>
+              </ul>
+              <div class="portfolio-card__actions">
+                <a href="https://www.daoudayinde.com/projets.html" target="_blank" rel="noopener noreferrer" class="portfolio-card__link portfolio-card__link--muted">Détails sur le portfolio</a>
+              </div>
             </div>
-          </div>
+          </article>
+
+          <article class="portfolio-card" data-aos="fade-up" data-aos-delay="0">
+            <div class="portfolio-card__media">
+              <img src="assets/portfolio/gloriam-consulting.png" alt="Aperçu Gloriam Consulting" width="800" height="500" loading="lazy" decoding="async" class="portfolio-card__img" />
+              <span class="portfolio-card__year">2025</span>
+            </div>
+            <div class="portfolio-card__body">
+              <span class="portfolio-card__tag">Site vitrine &amp; conseil</span>
+              <h3 class="portfolio-card__title">Gloriam Consulting</h3>
+              <p class="portfolio-card__desc">Cabinet de conseil spécialisé dans l’accompagnement des entreprises dans leur transformation et leur croissance. Expertise en excellence commerciale et solutions innovantes pour une réussite durable.</p>
+              <ul class="portfolio-card__chips" aria-label="Environnement technique">
+                <li>Next.js</li><li>TypeScript</li><li>Tailwind</li><li>Framer Motion</li><li>GitHub Pages</li>
+              </ul>
+              <div class="portfolio-card__actions">
+                <a href="https://www.gloriam-consulting.com/fr" target="_blank" rel="noopener noreferrer" class="portfolio-card__link">Voir le site</a>
+                <a href="https://github.com/mhdaouda/gloriam-consulting" target="_blank" rel="noopener noreferrer" class="portfolio-card__link portfolio-card__link--secondary">Code source</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="portfolio-card" data-aos="fade-up" data-aos-delay="80">
+            <div class="portfolio-card__media">
+              <img src="assets/portfolio/ohmyfood.png" alt="Aperçu OhMyFood" width="800" height="500" loading="lazy" decoding="async" class="portfolio-card__img" />
+              <span class="portfolio-card__year">2025</span>
+            </div>
+            <div class="portfolio-card__body">
+              <span class="portfolio-card__tag">Application web</span>
+              <h3 class="portfolio-card__title">OhMyFood</h3>
+              <p class="portfolio-card__desc">Vous permet selon votre localisation d’obtenir les meilleurs restaurants dans votre ville et de réserver une table. Vous pouvez également consulter les menus de chaque restaurant.</p>
+              <ul class="portfolio-card__chips" aria-label="Environnement technique">
+                <li>PHP</li><li>JavaScript</li><li>Docker</li><li>API</li><li>Git</li>
+              </ul>
+              <div class="portfolio-card__actions">
+                <a href="https://github.com/mhdaouda/ohmyfood" target="_blank" rel="noopener noreferrer" class="portfolio-card__link">Code source</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="portfolio-card" data-aos="fade-up" data-aos-delay="160">
+            <div class="portfolio-card__media">
+              <img src="assets/portfolio/portfolio-site.png" alt="Aperçu portfolio" width="800" height="500" loading="lazy" decoding="async" class="portfolio-card__img portfolio-card__img--contain" />
+              <span class="portfolio-card__year">2025</span>
+            </div>
+            <div class="portfolio-card__body">
+              <span class="portfolio-card__tag">Portfolio</span>
+              <h3 class="portfolio-card__title">Portfolio</h3>
+              <p class="portfolio-card__desc">Dossier numérique ou physique qui rassemble et présente de manière structurée ses compétences techniques, réalisations, projets, et parfois certifications ou expériences professionnelles.</p>
+              <ul class="portfolio-card__chips" aria-label="Environnement technique">
+                <li>HTML</li><li>CSS</li><li>JavaScript</li><li>PHP</li><li>GitHub</li>
+              </ul>
+              <div class="portfolio-card__actions">
+                <a href="https://github.com/mhdaouda/DAOUDA-Portfolio" target="_blank" rel="noopener noreferrer" class="portfolio-card__link">Code source</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="portfolio-card" data-aos="fade-up" data-aos-delay="240">
+            <div class="portfolio-card__media">
+              <img src="assets/portfolio/cloud-note.png" alt="Aperçu Cloud Note" width="800" height="500" loading="lazy" decoding="async" class="portfolio-card__img" />
+              <span class="portfolio-card__year">2014</span>
+            </div>
+            <div class="portfolio-card__body">
+              <span class="portfolio-card__tag">Agenda en ligne</span>
+              <h3 class="portfolio-card__title">CLOUD NOTE</h3>
+              <p class="portfolio-card__desc">Projet pense-bête ou agenda en ligne. Vous pouvez ajouter, modifier, supprimer des rendez-vous. Vous pouvez également partager vos rendez-vous avec d’autres utilisateurs.</p>
+              <ul class="portfolio-card__chips" aria-label="Environnement technique">
+                <li>Java JEE</li><li>Cloud</li><li>JavaScript</li><li>Web Services</li>
+              </ul>
+              <div class="portfolio-card__actions">
+                <a href="https://www.daoudayinde.com/projets.html" target="_blank" rel="noopener noreferrer" class="portfolio-card__link portfolio-card__link--muted">Détails sur le portfolio</a>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
