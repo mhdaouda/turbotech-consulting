@@ -527,7 +527,7 @@ body.has-spotlight .spotlight { opacity: 1; }
   pointer-events: auto;
 }
 
-/* Intro mot marque (HTML : TURBOTECH — style Hexahub néon, lettres révélées une par une) */
+/* Intro TURBOTECH (style Hexahub — néon cyan / teal) */
 .loader-stage-step--brand {
   position: relative;
   z-index: 1;
@@ -537,11 +537,11 @@ body.has-spotlight .spotlight { opacity: 1; }
     filter 0.72s ease;
 }
 
-.loader-tubotech-track {
+.loader-turbotech-track {
   display: inline-block;
 }
 
-.loader-tubotech-neon {
+.loader-turbotech-neon {
   margin: 0;
   font-size: clamp(2rem, 9vw, 3.75rem);
   line-height: 1.05;
@@ -555,28 +555,28 @@ body.has-spotlight .spotlight { opacity: 1; }
   filter: drop-shadow(0 0 1px rgba(34, 211, 238, 0.5));
 }
 
-.loader-tubotech-letter {
+.loader-turbotech-letter {
   display: inline-block;
   opacity: 0;
   transform: translateY(0.35em) scale(0.92);
   filter: blur(6px);
 }
 
-#loader-step-brand.is-visible .loader-tubotech-letter {
-  animation: tubotechLetterReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+#loader-step-brand.is-visible .loader-turbotech-letter {
+  animation: turbotechLetterReveal 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(1) { animation-delay: 0.03s; }
-#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(2) { animation-delay: 0.08s; }
-#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(3) { animation-delay: 0.13s; }
-#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(4) { animation-delay: 0.18s; }
-#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(5) { animation-delay: 0.23s; }
-#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(6) { animation-delay: 0.28s; }
-#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(7) { animation-delay: 0.33s; }
-#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(8) { animation-delay: 0.38s; }
-#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(9) { animation-delay: 0.43s; }
+#loader-step-brand.is-visible .loader-turbotech-letter:nth-child(1) { animation-delay: 0s; }
+#loader-step-brand.is-visible .loader-turbotech-letter:nth-child(2) { animation-delay: 0.12s; }
+#loader-step-brand.is-visible .loader-turbotech-letter:nth-child(3) { animation-delay: 0.24s; }
+#loader-step-brand.is-visible .loader-turbotech-letter:nth-child(4) { animation-delay: 0.36s; }
+#loader-step-brand.is-visible .loader-turbotech-letter:nth-child(5) { animation-delay: 0.48s; }
+#loader-step-brand.is-visible .loader-turbotech-letter:nth-child(6) { animation-delay: 0.6s; }
+#loader-step-brand.is-visible .loader-turbotech-letter:nth-child(7) { animation-delay: 0.72s; }
+#loader-step-brand.is-visible .loader-turbotech-letter:nth-child(8) { animation-delay: 0.84s; }
+#loader-step-brand.is-visible .loader-turbotech-letter:nth-child(9) { animation-delay: 0.96s; }
 
-@keyframes tubotechLetterReveal {
+@keyframes turbotechLetterReveal {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -590,7 +590,7 @@ body.has-spotlight .spotlight { opacity: 1; }
 }
 
 #loader-step-brand.is-visible .loader-hex-subtitle {
-  animation: loaderHexSubtitleIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+  animation: loaderHexSubtitleIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1.05s forwards;
 }
 
 @keyframes loaderHexSubtitleIn {
@@ -622,7 +622,7 @@ body.has-spotlight .spotlight { opacity: 1; }
 }
 
 #loader-step-brand.is-visible .loader-brand-line {
-  animation: loaderBrandUnderline 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.42s forwards;
+  animation: loaderBrandUnderline 1.05s cubic-bezier(0.22, 1, 0.36, 1) 1.18s forwards;
 }
 
 @keyframes loaderBrandUnderline {
@@ -1443,7 +1443,7 @@ a.contact-info:hover {
     display: none !important;
   }
 
-  #loader-step-brand.is-visible .loader-tubotech-letter {
+  #loader-step-brand.is-visible .loader-turbotech-letter {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;

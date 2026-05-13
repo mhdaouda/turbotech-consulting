@@ -76,7 +76,7 @@
 
     const timelineStart = performance.now();
     /** Carte visible à ~MAP_STEP_MS ; on la laisse MAP_DWELL_MS avant fermeture auto */
-    const MAP_STEP_MS = 3600;
+    const MAP_STEP_MS = 4300;
     const MAP_DWELL_MS = 2800;
 
     if (prefersReducedMotion()) {
@@ -90,8 +90,8 @@
     }
 
     schedule(() => reveal(stepBrand), 50);
-    schedule(() => reveal(stepStartup), 1450);
-    schedule(() => reveal(stepZones), 2500);
+    schedule(() => reveal(stepStartup), 2100);
+    schedule(() => reveal(stepZones), 3200);
     schedule(() => reveal(stepMap), MAP_STEP_MS);
 
     window.addEventListener('load', () => {
