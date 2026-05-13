@@ -1140,6 +1140,25 @@ body.has-spotlight .spotlight { opacity: 1; }
   transform: translateY(-4px);
 }
 
+/* ---------- Clients banner (logos) ---------- */
+.client-banner-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.75rem;
+}
+.client-banner-logo img {
+  max-height: clamp(32px, 5vw, 44px);
+  width: auto;
+  max-width: min(160px, 28vw);
+  object-fit: contain;
+  opacity: 0.82;
+  transition: opacity 0.25s ease;
+}
+.client-banner-logo:hover img {
+  opacity: 1;
+}
+
 /* ---------- Team cards ---------- */
 .team-card {
   text-align: center;
