@@ -1261,12 +1261,6 @@ body.has-spotlight .spotlight { opacity: 1; }
 .portfolio-card__placeholder--rh {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
-.portfolio-card__placeholder--vitrine {
-  background: linear-gradient(135deg, #0f766e 0%, #0e7490 45%, #1e3a5f 100%);
-}
-.portfolio-card__placeholder--infra {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 40%, #0f172a 100%);
-}
 
 .portfolio-card__year {
   position: absolute;
