@@ -93,37 +93,36 @@
     <script>
       document.body.classList.add('is-loading');
     </script>
-    <!-- Loader façon Hexahub : plexus + cadre coins + TUBOTECH néon → suite -->
+    <!-- Loader façon Hexahub : plexus + cadre plein écran + TURBOTECH lettre par lettre -->
     <div id="page-loader" class="loader-overlay fixed inset-0 z-[9999] bg-black flex flex-col overflow-hidden">
       <canvas id="loader-plexus" class="loader-plexus-canvas" aria-hidden="true"></canvas>
-      <div class="loader-scroll flex-1 min-h-0 relative flex items-center justify-center px-4 py-10">
-      <div class="loader-panel loader-panel--hex relative w-full max-w-3xl mx-auto text-center">
+      <div class="loader-scroll flex-1 min-h-0 relative flex flex-col px-3 py-6 sm:px-5 sm:py-8">
+      <div class="loader-panel loader-panel--hex relative w-full flex-1 flex flex-col min-h-0 mx-auto text-center">
         <div class="loader-hex-frame">
           <span class="loader-hex-corner loader-hex-corner--tl" aria-hidden="true"></span>
           <span class="loader-hex-corner loader-hex-corner--tr" aria-hidden="true"></span>
           <span class="loader-hex-corner loader-hex-corner--bl" aria-hidden="true"></span>
           <span class="loader-hex-corner loader-hex-corner--br" aria-hidden="true"></span>
 
-        <div id="loader-step-brand" class="loader-stage-step loader-stage-step--brand">
-          <p class="loader-tubotech-neon font-display font-extrabold uppercase tracking-[0.18em]" aria-label="TUBOTECH">
-            <span class="loader-tubotech-track">
-              <span class="loader-tubotech-letter">T</span><span class="loader-tubotech-letter">U</span><span class="loader-tubotech-letter">B</span><span class="loader-tubotech-letter">O</span><span class="loader-tubotech-letter">T</span><span class="loader-tubotech-letter">E</span><span class="loader-tubotech-letter">C</span><span class="loader-tubotech-letter">H</span>
+        <div id="loader-step-brand" class="loader-stage-step loader-stage-step--brand shrink-0">
+          <p class="loader-turbotech-neon font-display font-extrabold uppercase tracking-[0.12em] sm:tracking-[0.16em]" aria-label="TURBOTECH">
+            <span class="loader-turbotech-track">
+              <span class="loader-turbotech-letter">T</span><span class="loader-turbotech-letter">U</span><span class="loader-turbotech-letter">R</span><span class="loader-turbotech-letter">B</span><span class="loader-turbotech-letter">O</span><span class="loader-turbotech-letter">T</span><span class="loader-turbotech-letter">E</span><span class="loader-turbotech-letter">C</span><span class="loader-turbotech-letter">H</span>
             </span>
           </p>
-          <p class="loader-hex-subtitle mt-4 text-[10px] sm:text-xs text-white/90 tracking-[0.35em] uppercase font-semibold">
+          <p class="loader-hex-subtitle mt-3 sm:mt-4 text-[10px] sm:text-xs text-white/90 tracking-[0.35em] uppercase font-semibold">
             Startup high-tech
           </p>
-          <div class="loader-brand-line mx-auto mt-6 sm:mt-8 max-w-xs" aria-hidden="true"></div>
-        </div>
+          <div class="loader-brand-line mx-auto mt-4 sm:mt-6 max-w-xs" aria-hidden="true"></div>
         </div>
 
-        <div id="loader-step-startup" class="loader-stage-step mt-7 sm:mt-8">
-          <p class="loader-startup-desc text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+        <div id="loader-step-startup" class="loader-stage-step mt-5 sm:mt-6 shrink-0">
+          <p class="loader-startup-desc text-sm text-slate-400 max-w-lg mx-auto leading-relaxed px-1">
             Votre partenaire digital pour des solutions numériques modernes et fiables — Afrique, Europe et Amérique.
           </p>
         </div>
 
-        <div id="loader-step-zones" class="loader-stage-step mt-8">
+        <div id="loader-step-zones" class="loader-stage-step mt-5 sm:mt-6 shrink-0">
           <div class="loader-zones-pill inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-500/35 bg-brand-500/10 backdrop-blur-sm text-brand-200 text-xs sm:text-sm font-semibold tracking-wide">
             <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse flex-shrink-0"></span>
             Zones d'intervention
@@ -132,9 +131,9 @@
           </div>
         </div>
 
-        <div id="loader-step-map" class="loader-stage-step mt-8">
-          <div class="loader-map-shell rounded-2xl border border-white/10 bg-dark-800/60 backdrop-blur-md overflow-hidden shadow-2xl shadow-brand-900/30">
-            <div class="loader-intervention-map intervention-map intervention-map--loader" role="presentation">
+        <div id="loader-step-map" class="loader-stage-step mt-5 sm:mt-6 flex-1 min-h-0 flex flex-col w-full max-w-2xl mx-auto">
+          <div class="loader-map-shell rounded-2xl border border-white/10 bg-dark-800/60 backdrop-blur-md overflow-hidden shadow-2xl shadow-brand-900/30 flex-1 min-h-[140px] flex flex-col">
+            <div class="loader-intervention-map intervention-map intervention-map--loader flex-1 min-h-0" role="presentation">
               <svg class="world-map-svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4378.13 2434.94" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                 <image href="assets/world-map.svg" xlink:href="assets/world-map.svg" width="4378.13" height="2434.94" class="world-map-raster" preserveAspectRatio="xMidYMid meet" />
                 <g class="markers">
@@ -188,9 +187,10 @@
             </div>
           </div>
         </div>
+        </div>
 
       </div>
-      <div class="loader-actions loader-actions--floating">
+      <div class="loader-actions loader-actions--floating shrink-0">
         <button type="button" id="loader-skip" class="loader-skip" aria-label="Passer l'introduction et accéder au site">
           Passer l'introduction
         </button>
