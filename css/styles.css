@@ -1133,7 +1133,7 @@ body.has-spotlight .spotlight { opacity: 1; }
   line-height: 1.6;
 }
 
-/* ---------- Réalisations / portfolio (grille cartes + références Hexahub) ---------- */
+/* ---------- Réalisations / portfolio ---------- */
 .portfolio-section {
   position: relative;
 }
@@ -1200,13 +1200,6 @@ body.has-spotlight .spotlight { opacity: 1; }
     0 0 48px -12px rgba(34, 211, 238, 0.15);
 }
 
-.portfolio-card--hexahub-ref {
-  border-color: rgba(16, 185, 129, 0.15);
-}
-.portfolio-card--hexahub-ref:hover {
-  border-color: rgba(52, 211, 153, 0.35);
-}
-
 .portfolio-card__media {
   position: relative;
   aspect-ratio: 16 / 10;
@@ -1227,11 +1220,6 @@ body.has-spotlight .spotlight { opacity: 1; }
   height: 100%;
   object-fit: cover;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-}
-/* Vignettes distantes hexahub.fr (cadre identique aux autres cartes ; fichiers sources peuvent rester lourds — remplaçables par assets locaux) */
-.portfolio-card__img--hexahub-remote {
-  object-fit: cover;
-  object-position: center top;
 }
 .portfolio-card__img--contain {
   object-fit: contain;
