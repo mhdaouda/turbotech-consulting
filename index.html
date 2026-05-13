@@ -93,30 +93,32 @@
     <script>
       document.body.classList.add('is-loading');
     </script>
-    <!-- Loader façon Hexahub : fond design → nom → startup → zones → carte -->
+    <!-- Loader façon Hexahub : plexus + cadre coins + TUBOTECH néon → suite -->
     <div id="page-loader" class="loader-overlay fixed inset-0 z-[9999] bg-black flex flex-col overflow-hidden">
-      <div class="loader-scroll flex-1 min-h-0 flex items-center justify-center px-4 py-10">
-      <div class="loader-panel relative w-full max-w-xl mx-auto text-center">
-        <div class="loader-panel-glow"></div>
-        <div class="loader-panel-frame"></div>
-        <div class="loader-panel-grid" aria-hidden="true"></div>
+      <canvas id="loader-plexus" class="loader-plexus-canvas" aria-hidden="true"></canvas>
+      <div class="loader-scroll flex-1 min-h-0 relative flex items-center justify-center px-4 py-10">
+      <div class="loader-panel loader-panel--hex relative w-full max-w-3xl mx-auto text-center">
+        <div class="loader-hex-frame">
+          <span class="loader-hex-corner loader-hex-corner--tl" aria-hidden="true"></span>
+          <span class="loader-hex-corner loader-hex-corner--tr" aria-hidden="true"></span>
+          <span class="loader-hex-corner loader-hex-corner--bl" aria-hidden="true"></span>
+          <span class="loader-hex-corner loader-hex-corner--br" aria-hidden="true"></span>
 
         <div id="loader-step-brand" class="loader-stage-step loader-stage-step--brand">
-          <div class="loader-brand-glow" aria-hidden="true"></div>
-          <p class="loader-brand-title font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-[1.12]">
-            <span class="loader-brand-stack">
-              <span class="loader-brand-word loader-brand-word--a text-white">TurboTech</span>
-              <span class="loader-brand-word loader-brand-word--b">Consulting</span>
+          <p class="loader-tubotech-neon font-display font-extrabold uppercase tracking-[0.18em]" aria-label="TUBOTECH">
+            <span class="loader-tubotech-track">
+              <span class="loader-tubotech-letter">T</span><span class="loader-tubotech-letter">U</span><span class="loader-tubotech-letter">B</span><span class="loader-tubotech-letter">O</span><span class="loader-tubotech-letter">T</span><span class="loader-tubotech-letter">E</span><span class="loader-tubotech-letter">C</span><span class="loader-tubotech-letter">H</span>
             </span>
           </p>
-          <div class="loader-brand-line mx-auto mt-5 sm:mt-6" aria-hidden="true"></div>
+          <p class="loader-hex-subtitle mt-4 text-[10px] sm:text-xs text-white/90 tracking-[0.35em] uppercase font-semibold">
+            Startup high-tech
+          </p>
+          <div class="loader-brand-line mx-auto mt-6 sm:mt-8 max-w-xs" aria-hidden="true"></div>
+        </div>
         </div>
 
         <div id="loader-step-startup" class="loader-stage-step mt-7 sm:mt-8">
-          <p class="loader-startup-kicker text-sm sm:text-base text-slate-200 tracking-[0.25em] uppercase font-semibold">
-            Turbo Tech Startup
-          </p>
-          <p class="loader-startup-desc mt-3 text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+          <p class="loader-startup-desc text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
             Votre partenaire digital pour des solutions numériques modernes et fiables — Afrique, Europe et Amérique.
           </p>
         </div>
@@ -187,11 +189,11 @@
           </div>
         </div>
 
-        <div class="loader-actions mt-12">
-          <button type="button" id="loader-skip" class="loader-skip" aria-label="Passer l'introduction et accéder au site">
-            Passer l'introduction
-          </button>
-        </div>
+      </div>
+      <div class="loader-actions loader-actions--floating">
+        <button type="button" id="loader-skip" class="loader-skip" aria-label="Passer l'introduction et accéder au site">
+          Passer l'introduction
+        </button>
       </div>
       </div>
     </div>

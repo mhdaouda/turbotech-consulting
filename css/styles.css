@@ -391,8 +391,20 @@ body.has-spotlight .spotlight { opacity: 1; }
   isolation: isolate;
 }
 
+/* Plexus animé (style Hexahub) — canvas sous le contenu */
+.loader-plexus-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* Un seul conteneur scrollable sous l’intro ; barres masquées (scroll souris/tactile inchangé). */
 .loader-scroll {
+  position: relative;
+  z-index: 1;
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -407,44 +419,78 @@ body.has-spotlight .spotlight { opacity: 1; }
 
 .loader-panel {
   position: relative;
-  padding: 2rem 1.35rem 2.25rem;
-}
-
-.loader-panel-glow {
-  position: absolute;
-  inset: -55%;
-  background:
-    radial-gradient(circle at 45% 25%, rgba(16, 185, 129, 0.22), transparent 52%),
-    radial-gradient(circle at 72% 62%, rgba(34, 211, 238, 0.14), transparent 48%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.loader-panel-frame {
-  position: absolute;
-  inset: 0;
-  border-radius: 1.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 28px 90px -42px rgba(0, 0, 0, 0.95);
-  pointer-events: none;
+  padding: 0.5rem 0.75rem 1.5rem;
   z-index: 1;
 }
 
-.loader-panel-grid {
+.loader-panel--hex {
+  max-width: 40rem;
+}
+
+/* Bloc type Hexahub : crochets d’angle + filets horizontaux */
+.loader-hex-frame {
+  position: relative;
+  padding: clamp(2.75rem, 7vw, 4.25rem) clamp(1.25rem, 4vw, 2.25rem);
+  min-height: min(38vh, 320px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-hex-frame::before,
+.loader-hex-frame::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  border-radius: 1.75rem;
-  opacity: 0.38;
-  background-image:
-    linear-gradient(rgba(16, 185, 129, 0.075) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 185, 129, 0.075) 1px, transparent 1px);
-  background-size: 26px 26px;
-  mask-image: radial-gradient(ellipse 82% 72% at 50% 42%, black, transparent);
-  -webkit-mask-image: radial-gradient(ellipse 82% 72% at 50% 42%, black, transparent);
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.22), rgba(16, 185, 129, 0.2), transparent);
   pointer-events: none;
-  z-index: 1;
+  opacity: 0.9;
+}
+.loader-hex-frame::before {
+  top: 12%;
+}
+.loader-hex-frame::after {
+  bottom: 12%;
+}
+
+.loader-hex-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-color: rgba(34, 211, 238, 0.75);
+  border-style: solid;
+  pointer-events: none;
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.2);
+}
+.loader-hex-corner--tl {
+  top: 0;
+  left: 0;
+  border-width: 2px 0 0 2px;
+  border-radius: 1px 0 0 0;
+}
+.loader-hex-corner--tr {
+  top: 0;
+  right: 0;
+  border-width: 2px 2px 0 0;
+}
+.loader-hex-corner--bl {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 2px 2px;
+}
+.loader-hex-corner--br {
+  bottom: 0;
+  right: 0;
+  border-width: 0 2px 2px 0;
+}
+@media (min-width: 640px) {
+  .loader-hex-corner {
+    width: 52px;
+    height: 52px;
+  }
 }
 
 .loader-stage-step {
@@ -467,100 +513,75 @@ body.has-spotlight .spotlight { opacity: 1; }
   pointer-events: auto;
 }
 
-/* Intro « TurboTech Consulting » : mouvement plus premium */
+/* Intro TUBOTECH (style Hexahub — néon cyan / teal) */
 .loader-stage-step--brand {
   position: relative;
+  z-index: 1;
   transition:
     opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.92s cubic-bezier(0.22, 1, 0.36, 1),
     filter 0.72s ease;
 }
 
-.loader-brand-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.12em;
-  perspective: 900px;
+.loader-tubotech-track {
+  display: inline-block;
 }
 
-.loader-brand-word {
-  display: block;
+.loader-tubotech-neon {
+  margin: 0;
+  font-size: clamp(2rem, 9vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: 0.14em;
+  color: #2d5a54;
+  text-shadow:
+    0 0 6px rgba(73, 163, 146, 0.95),
+    0 0 18px rgba(34, 211, 238, 0.65),
+    0 0 42px rgba(16, 185, 129, 0.45),
+    0 0 72px rgba(34, 211, 238, 0.2);
+  filter: drop-shadow(0 0 1px rgba(34, 211, 238, 0.5));
+}
+
+.loader-tubotech-letter {
+  display: inline-block;
   opacity: 0;
-  transform: translate3d(0, 36px, -40px) rotateX(-14deg);
-  filter: blur(14px);
-  backface-visibility: hidden;
+  transform: translateY(0.35em) scale(0.92);
+  filter: blur(6px);
 }
 
-.loader-brand-word--b {
-  background: linear-gradient(105deg, #6ee7b7 0%, #34d399 32%, #22d3ee 62%, #34d399 88%, #10b981 100%);
-  background-size: 140% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+#loader-step-brand.is-visible .loader-tubotech-letter {
+  animation: tubotechLetterReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-#loader-step-brand.is-visible .loader-brand-word--b {
-  animation:
-    loaderBrandWordIn 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards,
-    loaderBrandGradientShift 6s ease-in-out 1s infinite alternate;
-}
+#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(1) { animation-delay: 0.03s; }
+#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(2) { animation-delay: 0.08s; }
+#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(3) { animation-delay: 0.13s; }
+#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(4) { animation-delay: 0.18s; }
+#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(5) { animation-delay: 0.23s; }
+#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(6) { animation-delay: 0.28s; }
+#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(7) { animation-delay: 0.33s; }
+#loader-step-brand.is-visible .loader-tubotech-letter:nth-child(8) { animation-delay: 0.38s; }
 
-@keyframes loaderBrandGradientShift {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
-#loader-step-brand.is-visible .loader-brand-word--a {
-  animation: loaderBrandWordIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.06s forwards;
-}
-
-@keyframes loaderBrandWordIn {
+@keyframes tubotechLetterReveal {
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0) rotateX(0deg);
+    transform: translateY(0) scale(1);
     filter: blur(0);
   }
 }
 
-.loader-brand-title {
-  position: relative;
-  z-index: 1;
-}
-
-.loader-brand-glow {
-  position: absolute;
-  left: 50%;
-  top: 42%;
-  width: min(440px, 95%);
-  height: clamp(100px, 28vw, 160px);
-  transform: translate(-50%, -50%);
-  background:
-    radial-gradient(ellipse 55% 65% at 50% 50%, rgba(16, 185, 129, 0.42), transparent 72%),
-    radial-gradient(ellipse 40% 50% at 62% 38%, rgba(34, 211, 238, 0.22), transparent 68%);
+.loader-hex-subtitle {
   opacity: 0;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(2px);
+  transform: translateY(10px);
 }
 
-#loader-step-brand.is-visible .loader-brand-glow {
-  animation: loaderBrandGlowIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    loaderBrandGlowPulse 2.8s ease-in-out 1s infinite alternate;
+#loader-step-brand.is-visible .loader-hex-subtitle {
+  animation: loaderHexSubtitleIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
 }
 
-@keyframes loaderBrandGlowIn {
-  to { opacity: 1; }
-}
-
-@keyframes loaderBrandGlowPulse {
-  from {
-    opacity: 0.55;
-    transform: translate(-50%, -50%) scale(0.94);
-  }
+@keyframes loaderHexSubtitleIn {
   to {
-    opacity: 0.95;
-    transform: translate(-50%, -52%) scale(1.06);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -597,24 +618,6 @@ body.has-spotlight .spotlight { opacity: 1; }
 }
 
 /* Étapes texte */
-.loader-startup-kicker {
-  opacity: 0;
-  transform: translateY(18px);
-  letter-spacing: 0.42em;
-}
-
-#loader-step-startup.is-visible .loader-startup-kicker {
-  animation: loaderKickerIn 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes loaderKickerIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    letter-spacing: 0.25em;
-  }
-}
-
 .loader-startup-desc {
   opacity: 0;
   transform: translateY(14px);
@@ -622,7 +625,7 @@ body.has-spotlight .spotlight { opacity: 1; }
 }
 
 #loader-step-startup.is-visible .loader-startup-desc {
-  animation: loaderFadeLift 0.88s cubic-bezier(0.22, 1, 0.36, 1) 0.14s forwards;
+  animation: loaderFadeLift 0.88s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes loaderFadeLift {
@@ -722,6 +725,14 @@ body.has-spotlight .spotlight { opacity: 1; }
   z-index: 2;
 }
 
+.loader-actions--floating {
+  position: absolute;
+  right: max(0.75rem, env(safe-area-inset-right));
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+  z-index: 3;
+  margin-top: 0;
+}
+
 .loader-skip {
   appearance: none;
   cursor: pointer;
@@ -765,16 +776,17 @@ body.has-spotlight .spotlight { opacity: 1; }
   max-height: min(38vh, 260px);
 }
 
-/* Loader micro shimmer */
+/* Léger shimmer au-dessus du plexus */
 #page-loader::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.04) 35%, transparent 60%);
+  background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.03) 35%, transparent 60%);
   transform: translateX(-40%);
   animation: shimmer 1.1s ease-in-out infinite;
-  opacity: 0.6;
+  opacity: 0.35;
   pointer-events: none;
+  z-index: 0;
 }
 @keyframes shimmer {
   0%   { transform: translateX(-45%); }
@@ -1403,12 +1415,21 @@ a.contact-info:hover {
     pointer-events: auto !important;
   }
 
-  #loader-step-brand.is-visible .loader-brand-word--a,
-  #loader-step-brand.is-visible .loader-brand-word--b {
+  .loader-plexus-canvas {
+    display: none !important;
+  }
+
+  #loader-step-brand.is-visible .loader-tubotech-letter {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
+  }
+
+  #loader-step-brand.is-visible .loader-hex-subtitle {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   #loader-step-brand.is-visible .loader-brand-line {
@@ -1417,19 +1438,11 @@ a.contact-info:hover {
     transform: scaleX(1) !important;
   }
 
-  #loader-step-brand.is-visible .loader-brand-glow {
-    animation: none !important;
-    opacity: 0.55 !important;
-    transform: translate(-50%, -50%) scale(1) !important;
-  }
-
-  #loader-step-startup.is-visible .loader-startup-kicker,
   #loader-step-startup.is-visible .loader-startup-desc {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
-    letter-spacing: 0.25em !important;
   }
 
   #loader-step-zones.is-visible .loader-zones-pill {

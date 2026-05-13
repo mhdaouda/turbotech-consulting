@@ -21,6 +21,7 @@
     initInterventionMap();
     initHeroCarousel();
     initContactForm();
+    initLoaderPlexus();
   });
 
   function prefersReducedMotion() {
@@ -101,6 +102,143 @@
     });
 
     schedule(dismiss, 18000);
+  }
+
+  /**
+   * Fond type « plexus » (lignes + points animés, style Hexahub).
+   */
+  function initLoaderPlexus() {
+    const canvas = document.getElementById('loader-plexus');
+    const loader = document.getElementById('page-loader');
+    if (!canvas || !loader || prefersReducedMotion()) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let raf = 0;
+    let particles = [];
+    const mouse = { x: -1, y: -1 };
+    const maxLink = 118;
+
+    function resize() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function initParticles() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const n = Math.min(88, Math.max(48, Math.floor((w * h) / 24000)));
+      particles = [];
+      for (let i = 0; i < n; i += 1) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.42,
+          vy: (Math.random() - 0.5) * 0.42,
+        });
+      }
+    }
+
+    function onMove(e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    }
+
+    function onLeave() {
+      mouse.x = -1;
+      mouse.y = -1;
+    }
+
+    function onResize() {
+      resize();
+      initParticles();
+    }
+
+    function stop() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      window.removeEventListener('resize', onResize);
+      loader.removeEventListener('mousemove', onMove);
+      loader.removeEventListener('mouseleave', onLeave);
+    }
+
+    function tick() {
+      if (loader.classList.contains('is-hidden')) {
+        stop();
+        return;
+      }
+
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, w, h);
+
+      for (let i = 0; i < particles.length; i += 1) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+        p.x = Math.max(0, Math.min(w, p.x));
+        p.y = Math.max(0, Math.min(h, p.y));
+
+        if (mouse.x >= 0) {
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const d = Math.hypot(dx, dy);
+          if (d < 210 && d > 0.5) {
+            const pull = 0.18;
+            p.x -= (dx / d) * pull;
+            p.y -= (dy / d) * pull;
+          }
+        }
+      }
+
+      for (let i = 0; i < particles.length; i += 1) {
+        for (let j = i + 1; j < particles.length; j += 1) {
+          const a = particles[i];
+          const b = particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const d = Math.hypot(dx, dy);
+          if (d < maxLink) {
+            const t = 1 - d / maxLink;
+            const alpha = t * 0.34;
+            ctx.strokeStyle = `rgba(34, 211, 238, ${alpha})`;
+            ctx.lineWidth = 0.65;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      for (let i = 0; i < particles.length; i += 1) {
+        const p = particles[i];
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.55)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.25, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      raf = requestAnimationFrame(tick);
+    }
+
+    resize();
+    initParticles();
+    window.addEventListener('resize', onResize, { passive: true });
+    loader.addEventListener('mousemove', onMove, { passive: true });
+    loader.addEventListener('mouseleave', onLeave, { passive: true });
+    raf = requestAnimationFrame(tick);
   }
 
   function initAOS() {
