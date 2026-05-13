@@ -426,10 +426,12 @@ body.has-spotlight .spotlight { opacity: 1; }
 .loader-panel--hex {
   width: 100%;
   max-width: none;
-  padding-inline: clamp(0.25rem, 1.5vw, 0.75rem);
+  padding: 0;
+  padding-left: max(0px, env(safe-area-inset-left, 0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
 }
 
-/* Bloc type Hexahub : crochets d’angle + filets — englobe titre + textes + carte */
+/* Bloc type Hexahub : crochets d’angle + filets — presque plein écran (pas de plafond en px) */
 .loader-hex-frame {
   position: relative;
   flex: 1 1 auto;
@@ -438,27 +440,34 @@ body.has-spotlight .spotlight { opacity: 1; }
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  min-height: min(calc(100dvh - 5.75rem), 960px);
-  padding: clamp(1.5rem, 4vw, 2.75rem) clamp(0.75rem, 3vw, 1.5rem) clamp(0.75rem, 2vw, 1.25rem);
-  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  /* Réserve minimale pour le bouton « Passer » (flottant) + encarts safe-area */
+  min-height: calc(
+    100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 3.25rem
+  );
+  min-height: calc(
+    100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 3.25rem
+  );
+  padding: clamp(0.65rem, 2.2vw, 1.15rem) clamp(0.45rem, 1.8vw, 0.85rem)
+    max(0.5rem, env(safe-area-inset-bottom, 0px));
 }
 
 .loader-hex-frame::before,
 .loader-hex-frame::after {
   content: '';
   position: absolute;
-  left: 4%;
-  right: 4%;
+  left: 1.25%;
+  right: 1.25%;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.22), rgba(16, 185, 129, 0.2), transparent);
   pointer-events: none;
   opacity: 0.9;
 }
 .loader-hex-frame::before {
-  top: 5%;
+  top: 2%;
 }
 .loader-hex-frame::after {
-  bottom: 5%;
+  bottom: 2%;
 }
 
 .loader-hex-corner {
@@ -787,7 +796,7 @@ body.has-spotlight .spotlight { opacity: 1; }
   width: 100%;
   flex: 1 1 auto;
   min-height: 120px;
-  max-height: min(52dvh, 480px);
+  max-height: min(58dvh, 560px);
   height: auto;
 }
 
