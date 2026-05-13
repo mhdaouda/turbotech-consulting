@@ -22,6 +22,7 @@
     initHeroCarousel();
     initContactForm();
     initLoaderPlexus();
+    initHexPortfolioGalleries();
   });
 
   function prefersReducedMotion() {
@@ -635,6 +636,119 @@
         setStatus("Impossible d'envoyer le formulaire. Essayez par e-mail ou WhatsApp.", 'error');
       } finally {
         if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
+
+  /**
+   * Galeries « portfolio » façon Hexahub (carrousel, compteur, plein écran).
+   * Référence : section #portfolio sur https://www.hexahub.fr/
+   */
+  function initHexPortfolioGalleries() {
+    const reduceMotion =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const lightbox = document.getElementById('hex-portfolio-lightbox');
+    const lbInner = lightbox?.querySelector('.hex-lightbox__inner');
+    const lbClose = lightbox?.querySelector('.hex-lightbox__close');
+
+    const closeLightbox = () => {
+      if (!lightbox) return;
+      lightbox.setAttribute('hidden', '');
+      lightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+    };
+
+    const openLightbox = (slideEl) => {
+      if (!lightbox || !lbInner || !slideEl) return;
+      lbInner.innerHTML = '';
+      const clone = slideEl.cloneNode(true);
+      clone.classList.remove('hex-gallery__slide');
+      clone.classList.add('hex-lightbox__clone');
+      lbInner.appendChild(clone);
+      lightbox.removeAttribute('hidden');
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    if (lightbox && lbClose && !lightbox.dataset.boundClose) {
+      lightbox.dataset.boundClose = '1';
+      lbClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+      });
+    }
+
+    document.querySelectorAll('[data-hex-gallery]').forEach((root) => {
+      const track = root.querySelector('.hex-gallery__track');
+      const slides = track ? Array.from(track.querySelectorAll('.hex-gallery__slide')) : [];
+      const prev = root.querySelector('.hex-gallery__btn--prev');
+      const next = root.querySelector('.hex-gallery__btn--next');
+      const counter = root.querySelector('.hex-gallery__count');
+      const expand = root.querySelector('.hex-gallery__expand');
+      const dots = root.querySelector('.hex-gallery__dots');
+
+      if (!track || slides.length === 0) return;
+
+      let index = 0;
+      const n = slides.length;
+
+      const syncDots = () => {
+        if (!dots) return;
+        dots.querySelectorAll('button').forEach((b, j) => {
+          b.classList.toggle('is-active', j === index);
+          b.setAttribute('aria-current', j === index ? 'true' : 'false');
+        });
+      };
+
+      const syncCounter = () => {
+        if (counter) counter.textContent = `${index + 1} / ${n}`;
+      };
+
+      const syncSlides = () => {
+        slides.forEach((s, j) => {
+          const on = j === index;
+          s.classList.toggle('is-active', on);
+          s.setAttribute('aria-hidden', on ? 'false' : 'true');
+        });
+      };
+
+      const go = (i) => {
+        index = ((i % n) + n) % n;
+        syncSlides();
+        syncCounter();
+        syncDots();
+      };
+
+      if (n <= 1) {
+        if (prev) prev.setAttribute('hidden', '');
+        if (next) next.setAttribute('hidden', '');
+        if (counter) counter.setAttribute('hidden', '');
+        if (dots) dots.setAttribute('hidden', '');
+      } else {
+        slides.forEach((_, j) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'hex-gallery__dot';
+          b.setAttribute('aria-label', `Image ${j + 1}`);
+          b.addEventListener('click', () => go(j));
+          dots?.appendChild(b);
+        });
+      }
+
+      prev?.addEventListener('click', () => go(index - 1));
+      next?.addEventListener('click', () => go(index + 1));
+
+      expand?.addEventListener('click', () => openLightbox(slides[index]));
+
+      go(0);
+
+      if (!reduceMotion) {
+        root.addEventListener('mouseenter', () => root.classList.add('is-hovered'));
+        root.addEventListener('mouseleave', () => root.classList.remove('is-hovered'));
       }
     });
   }
