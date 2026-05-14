@@ -1759,3 +1759,32 @@ a.contact-info:hover {
 .seo-article a:hover {
   color: rgb(110 231 183);
 }
+
+/* ---------- Grille pays (accueil SEO) ---------- */
+.country-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.5rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: linear-gradient(165deg, rgba(30, 41, 59, 0.55), rgba(15, 23, 42, 0.88));
+  font-family: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #e2e8f0;
+  text-decoration: none;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+.country-tile:hover {
+  border-color: rgba(52, 211, 153, 0.45);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.12);
+  transform: translateY(-2px);
+  color: rgb(52 211 153);
+}
