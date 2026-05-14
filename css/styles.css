@@ -1704,3 +1704,58 @@ a.contact-info:hover {
     transition: none !important;
   }
 }
+
+/* ---------- Pages SEO (contenu long, hors one-page) ---------- */
+.seo-article h1 {
+  font-family: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #fff;
+  margin: 0 0 1rem;
+}
+.seo-article .seo-lead {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: rgb(148 163 184);
+  margin: 0 0 2rem;
+}
+.seo-article h2 {
+  font-family: 'Orbitron', 'Rajdhani', system-ui, sans-serif;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  color: #fff;
+  margin: 2.5rem 0 0.85rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.22);
+}
+.seo-article h3 {
+  font-family: 'Rajdhani', 'Exo 2', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: rgb(226 232 240);
+  margin: 1.75rem 0 0.5rem;
+}
+.seo-article p {
+  margin: 0 0 1rem;
+  line-height: 1.7;
+  color: rgb(203 213 225);
+}
+.seo-article ul,
+.seo-article ol {
+  margin: 0 0 1.25rem;
+  padding-left: 1.35rem;
+  color: rgb(203 213 225);
+  line-height: 1.65;
+}
+.seo-article li {
+  margin-bottom: 0.4rem;
+}
+.seo-article a {
+  color: rgb(52 211 153);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.seo-article a:hover {
+  color: rgb(110 231 183);
+}

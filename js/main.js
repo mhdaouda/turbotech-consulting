@@ -7,8 +7,11 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
-    document.documentElement.classList.add('is-loading');
-    document.body.classList.add('is-loading');
+    const pageLoader = document.getElementById('page-loader');
+    if (pageLoader) {
+      document.documentElement.classList.add('is-loading');
+      document.body.classList.add('is-loading');
+    }
     initPageLoader();
     initAOS();
     initHeaderScroll();
