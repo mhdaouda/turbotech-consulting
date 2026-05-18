@@ -985,6 +985,16 @@ body.has-spotlight .spotlight { opacity: 1; }
 }
 
 /* ---------- Service cards ---------- */
+a.service-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+a.service-card:focus-visible {
+  outline: 2px solid rgba(16, 185, 129, 0.65);
+  outline-offset: 3px;
+}
 .service-card {
   position: relative;
   padding: 2rem;
@@ -1787,4 +1797,119 @@ a.contact-info:hover {
   box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.12);
   transform: translateY(-2px);
   color: rgb(52 211 153);
+}
+.country-tile--active {
+  border-color: rgba(52, 211, 153, 0.75);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.25);
+  color: #6ee7b7;
+}
+
+/* ---------- Région / géolocalisation ---------- */
+.region-banner {
+  position: sticky;
+  top: 5rem;
+  z-index: 45;
+  background: rgba(5, 5, 5, 0.94);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.22);
+  backdrop-filter: blur(10px);
+}
+.region-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+  color: #000;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.region-banner__cta:hover {
+  opacity: 0.9;
+}
+.region-banner__link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.region-service-badge {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6ee7b7;
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.08);
+}
+.region-picker {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+.region-picker__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+.region-picker__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.region-picker__chip {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.6);
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.region-picker__chip:hover {
+  border-color: rgba(52, 211, 153, 0.5);
+  color: #6ee7b7;
+}
+
+/* Cookie consent — style portfolio https://www.daoudayinde.com/ */
+.cc-window.cc-floating {
+  font-family: 'Rajdhani', 'Exo 2', system-ui, sans-serif !important;
+  border-top: 1px solid rgba(241, 214, 0, 0.35) !important;
+}
+.cc-btn.cc-dismiss {
+  font-weight: 700 !important;
+  border-radius: 4px !important;
+}
+.cc-link {
+  color: #f1d600 !important;
+  opacity: 1 !important;
+}
+
+.region-trust-card {
+  animation: region-trust-in 0.5s ease-out;
+}
+@keyframes region-trust-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.region-banner__pin {
+  margin-right: 0.15rem;
 }

@@ -451,7 +451,12 @@
       if (!code) return;
       c.addEventListener('mouseenter', () => activate(code, true));
       c.addEventListener('focus', () => activate(code, true));
-      c.addEventListener('click', () => activate(code, true));
+      c.addEventListener('click', () => {
+        activate(code, true);
+        if (window.TurboTechRegion && typeof window.TurboTechRegion.setManualCountry === 'function') {
+          window.TurboTechRegion.setManualCountry(code);
+        }
+      });
       c.addEventListener('mouseleave', () => clear());
       c.addEventListener('blur', () => clear());
     };
@@ -459,8 +464,18 @@
     markers.forEach(wireMarker);
     chips.forEach(wireChip);
 
-    // Default highlight
-    activate('BJ', false);
+    window.initInterventionMapRegion = (code) => {
+      if (code) activate(code, false);
+    };
+
+    window.addEventListener('turbotech:region', (e) => {
+      const code = e.detail && e.detail.mapCode;
+      if (code) activate(code, false);
+    });
+
+    setTimeout(() => {
+      if (!document.body.dataset.regionCountry) activate('BJ', false);
+    }, 900);
   }
 
   function initHeroCarousel() {
