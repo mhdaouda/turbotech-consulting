@@ -451,6 +451,12 @@
     var localStat = document.querySelector('[data-region-local-stat]');
     if (localStat && state.localStat) localStat.textContent = state.localStat;
 
+    var footerLocation = document.querySelector('[data-region-footer-location]');
+    if (footerLocation) {
+      var place = state.locationLabel || state.countryName || state.displayLabel;
+      footerLocation.textContent = place ? ' ' + place + '.' : ' notre réseau international.';
+    }
+
     var cards = document.querySelectorAll('#services .service-card');
     if (cards.length && state.servicesTags.length) {
       cards.forEach(function (card, i) {
