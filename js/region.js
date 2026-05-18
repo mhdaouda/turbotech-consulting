@@ -5,6 +5,16 @@
 (function (global) {
   'use strict';
 
+  /** Ancienne barre sticky : retirée du HTML mais peut réapparaître via cache JS. */
+  function removeLegacyRegionUi() {
+    document.querySelectorAll('#region-banner, .region-banner, #region-picker').forEach(function (el) {
+      el.remove();
+    });
+    document.body.classList.remove('region-active');
+  }
+
+  removeLegacyRegionUi();
+
   var STORAGE_KEY = 'turbotech_region_v2';
   var LEGACY_STORAGE_KEY = 'turbotech_region_v1';
 
@@ -425,12 +435,8 @@
 
     var trustCard = document.getElementById('region-trust-card');
     if (trustCard) {
-      var trustText = trustCard.querySelector('[data-region-trust-text]');
-      if (trustText && state.locationLabel) {
-        trustText.textContent =
-          'Connexion depuis ' + state.locationLabel + ' — ' + (state.trustAbout || '');
-      }
-      trustCard.classList.remove('hidden');
+      trustCard.classList.add('hidden');
+      trustCard.setAttribute('aria-hidden', 'true');
     }
 
     var lead = document.querySelector('[data-region-services-lead]');
@@ -546,6 +552,8 @@
   }
 
   function init() {
+    removeLegacyRegionUi();
+
     var onConsent = function () {
       runGeoDetection();
     };
