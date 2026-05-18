@@ -5,7 +5,8 @@
 (function (global) {
   'use strict';
 
-  var STORAGE_KEY = 'turbotech_region_v1';
+  var STORAGE_KEY = 'turbotech_region_v2';
+  var LEGACY_STORAGE_KEY = 'turbotech_region_v1';
 
   var PROFILE = {
     benin: {
@@ -130,7 +131,29 @@
   };
 
   function hasConsent() {
-    return global.TurboTechCookies && global.TurboTechCookies.hasConsent();
+    if (global.TurboTechCookies && global.TurboTechCookies.hasConsent()) return true;
+    try {
+      var s = localStorage.getItem('turbotech_cookie_consent');
+      if (s === 'allow' || s === 'dismiss') return true;
+    } catch (e) {
+      /* ignore */
+    }
+    var cookie = document.cookie || '';
+    return cookie.indexOf('cookieconsent_status=dismiss') !== -1 || cookie.indexOf('cookieconsent_status=allow') !== -1;
+  }
+
+  function footerNeedsUpdate() {
+    var el = document.querySelector('[data-region-footer-location]');
+    if (!el) return false;
+    var t = (el.textContent || '').trim();
+    return !t || t === '…' || t === '...';
+  }
+
+  function shouldRefreshGeo(stored) {
+    if (!stored || !stored.profileKey) return true;
+    if (!stored.locationLabel) return true;
+    if (footerNeedsUpdate()) return true;
+    return false;
   }
 
   function profileForKey(key) {
@@ -276,6 +299,15 @@
   function loadStored() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        raw = localStorage.getItem(LEGACY_STORAGE_KEY);
+        if (raw) {
+          var legacy = JSON.parse(raw);
+          if (legacy && legacy.profileKey && !legacy.locationLabel) {
+            return null;
+          }
+        }
+      }
       if (!raw) return null;
       return JSON.parse(raw);
     } catch (e) {
@@ -301,39 +333,65 @@
     });
   }
 
+  function mapGeoPayload(data) {
+    return {
+      city: data.city || '',
+      country_name: data.country_name || data.country || '',
+      country_code: (data.country_code || '').toUpperCase(),
+      continent_code: (data.continent_code || guessContinent(data.country_code) || '').toUpperCase(),
+    };
+  }
+
+  function stateFromMapped(mapped, source) {
+    var state = resolveFromCountry(mapped.country_code, mapped.continent_code, source || 'geo');
+    return enrichFromGeo(state, mapped);
+  }
+
   function fetchGeo() {
     var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
     var timeout = controller
       ? global.setTimeout(function () {
           controller.abort();
-        }, 5000)
+        }, 8000)
       : null;
     var signal = controller ? controller.signal : undefined;
 
-    return fetchGeoJson('https://ipapi.co/json/', signal)
+    return fetchGeoJson('https://get.geojs.io/v1/ip/geo.json', signal)
       .then(function (data) {
-        var state = resolveFromCountry(data.country_code, data.continent_code, 'geo');
-        return enrichFromGeo(state, data);
+        return stateFromMapped(mapGeoPayload(data), 'geo');
       })
       .catch(function () {
-        return fetchGeoJson(
-          'https://ip-api.com/json/?fields=status,country,countryCode,continentCode,city',
-          signal
-        )
-          .then(function (data) {
-            if (data.status !== 'success') throw new Error('geo');
-            var mapped = {
-              country_code: data.countryCode,
-              continent_code: data.continentCode,
+        return fetchGeoJson('https://ipwho.is/', signal).then(function (data) {
+          if (!data.success) throw new Error('geo');
+          return stateFromMapped(
+            mapGeoPayload({
               city: data.city,
-              country_name: data.country,
-            };
-            var state = resolveFromCountry(mapped.country_code, mapped.continent_code, 'geo');
-            return enrichFromGeo(state, mapped);
-          });
+              country: data.country,
+              country_code: data.country_code,
+              continent_code: data.continent_code,
+            }),
+            'geo'
+          );
+        });
       })
       .catch(function () {
-        return enrichFromGeo(resolveFromBrowserLocale(), null);
+        return fetchGeoJson('https://ipapi.co/json/', signal).then(function (data) {
+          return stateFromMapped(
+            mapGeoPayload({
+              city: data.city,
+              country_name: data.country_name,
+              country_code: data.country_code,
+              continent_code: data.continent_code,
+            }),
+            'geo'
+          );
+        });
+      })
+      .catch(function () {
+        var fallback = resolveFromBrowserLocale();
+        fallback.locationLabel = fallback.countryName || fallback.displayLabel;
+        fallback.bannerMessage = buildBannerMessage(fallback);
+        return fallback;
       })
       .finally(function () {
         if (timeout) global.clearTimeout(timeout);
@@ -453,7 +511,7 @@
 
     var footerLocation = document.querySelector('[data-region-footer-location]');
     if (footerLocation) {
-      var place = state.locationLabel || state.countryName || state.displayLabel;
+      var place = state.locationLabel || state.countryName || state.displayLabel || '';
       footerLocation.textContent = place ? ' ' + place + '.' : ' notre réseau international.';
     }
 
@@ -507,15 +565,27 @@
   }
 
   function runGeoDetection() {
+    if (!hasConsent()) return;
+
     var stored = loadStored();
-    if (stored && stored.profileKey && stored.source !== 'pending') {
+    if (stored && stored.profileKey && !shouldRefreshGeo(stored)) {
       applyToDocument(stored);
       if (typeof global.initInterventionMapRegion === 'function') {
         global.initInterventionMapRegion(stored.mapCode);
       }
       return;
     }
-    fetchGeo().then(applyGeoState);
+
+    if (stored && stored.profileKey) {
+      applyToDocument(stored);
+    }
+
+    fetchGeo()
+      .then(applyGeoState)
+      .catch(function () {
+        var fallback = resolveFromBrowserLocale();
+        applyGeoState(fallback);
+      });
   }
 
   function onConsentGranted() {
@@ -557,18 +627,22 @@
 
   function init() {
     wirePicker();
-    var stored = loadStored();
-    if (stored && stored.profileKey) {
-      applyToDocument(stored);
-      if (typeof global.initInterventionMapRegion === 'function') {
-        global.initInterventionMapRegion(stored.mapCode);
-      }
-    }
+
+    var onConsent = function () {
+      runGeoDetection();
+    };
+
+    global.addEventListener('turbotech:cookies-accepted', onConsent);
+
     if (hasConsent()) {
-      if (!stored || !stored.profileKey) runGeoDetection();
-    } else {
-      global.addEventListener('turbotech:cookies-accepted', runGeoDetection, { once: true });
+      runGeoDetection();
     }
+
+    global.addEventListener('load', function () {
+      if (hasConsent() && footerNeedsUpdate()) {
+        runGeoDetection();
+      }
+    });
   }
 
   global.TurboTechRegion = {
