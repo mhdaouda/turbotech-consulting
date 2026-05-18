@@ -418,68 +418,10 @@
     return '';
   }
 
-  function ensureBannerMarkup() {
-    if (document.getElementById('region-banner')) return;
-    var header = document.getElementById('header');
-    if (!header) return;
-    var banner = document.createElement('div');
-    banner.id = 'region-banner';
-    banner.className = 'region-banner hidden';
-    banner.setAttribute('role', 'status');
-    banner.setAttribute('aria-live', 'polite');
-    banner.setAttribute('aria-hidden', 'true');
-    var inner = document.createElement('div');
-    inner.className = 'region-banner__inner max-w-7xl mx-auto px-6 lg:px-8 py-3 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6';
-    var p = document.createElement('p');
-    p.className = 'region-banner__text text-sm text-slate-300 flex-1';
-    var pin = document.createElement('span');
-    pin.className = 'region-banner__pin';
-    pin.setAttribute('aria-hidden', 'true');
-    pin.textContent = '\uD83D\uDCCD'; /* 📍 */
-    var msg = document.createElement('span');
-    msg.setAttribute('data-region-message', '');
-    p.appendChild(pin);
-    p.appendChild(document.createTextNode(' '));
-    p.appendChild(msg);
-    var actions = document.createElement('div');
-    actions.className = 'flex flex-wrap items-center gap-3 shrink-0';
-    var link = document.createElement('a');
-    link.setAttribute('data-region-zone-link', '');
-    link.href = 'zones-intervention.html';
-    link.className = 'region-banner__cta text-sm font-semibold';
-    link.textContent = 'Zone';
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.setAttribute('data-region-change', '');
-    btn.className = 'region-banner__link text-sm text-slate-500 hover:text-brand-400';
-    btn.textContent = 'Changer de zone';
-    actions.appendChild(link);
-    actions.appendChild(btn);
-    inner.appendChild(p);
-    inner.appendChild(actions);
-    banner.appendChild(inner);
-    header.insertAdjacentElement('afterend', banner);
-  }
-
   function applyToDocument(state) {
     if (!state || !document.body) return;
-    ensureBannerMarkup();
     document.body.dataset.regionProfile = state.profileKey;
     document.body.dataset.regionCountry = state.countryCode;
-
-    var banner = document.getElementById('region-banner');
-    if (banner) {
-      var msg = banner.querySelector('[data-region-message]');
-      var link = banner.querySelector('[data-region-zone-link]');
-      if (msg) msg.textContent = state.bannerMessage;
-      if (link) {
-        link.href = state.zoneHref;
-        link.textContent = 'Voir la fiche ' + state.displayLabel;
-      }
-      banner.classList.remove('hidden');
-      banner.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('region-active');
-    }
 
     var trustCard = document.getElementById('region-trust-card');
     if (trustCard) {
@@ -603,31 +545,7 @@
     applyGeoState(state);
   }
 
-  function wirePicker() {
-    document.addEventListener('click', function (e) {
-      var selectBtn = e.target.closest('[data-region-select]');
-      if (selectBtn) {
-        var code = selectBtn.getAttribute('data-region-select');
-        if (code) setManualCountry(code);
-        var picker = document.getElementById('region-picker');
-        if (picker) picker.classList.add('hidden');
-        return;
-      }
-      var changeBtn = e.target.closest('[data-region-change]');
-      if (changeBtn) {
-        e.preventDefault();
-        var pickerEl = document.getElementById('region-picker');
-        if (pickerEl) {
-          pickerEl.classList.toggle('hidden');
-          pickerEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }
-    });
-  }
-
   function init() {
-    wirePicker();
-
     var onConsent = function () {
       runGeoDetection();
     };
